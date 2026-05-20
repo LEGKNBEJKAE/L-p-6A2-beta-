@@ -1,9 +1,10 @@
+--- START OF FILE text/html ---
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lớp 6A2 - THCS Long Trường (Phiên bản giảm thiểu)</title>
+    <title>Lớp 6A2 - THCS Long Trường (Kỷ Niệm Sinh Nhật Cô)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- THƯ VIỆN SUPABASE - HỆ THỐNG QUẢN TRỊ DỮ LIỆU ĐÁM MÂY -->
@@ -11,13 +12,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         /**
-         * HỆ THỐNG CSS CUSTOM - LỚP 6A2 LONG TRƯỜNG
-         * PHIÊN BẢN CẬP NHẬT TÍNH NĂNG KHOẢNH KHẮC VÀ THEME MÀU MỚI
+         * HỆ THỐNG CSS CUSTOM - LỚP 6A2 LONG TRƯỜNG - PHIÊN BẢN ALBUM KỶ NIỆM
          */
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
         
         /* Hiệu ứng mây bay ngang màn hình */
@@ -44,7 +43,7 @@
             50% { box-shadow: 0 0 40px rgba(255,215,0,0.8); border-color: #facc15; } 
         }
 
-        /* HIỆU ỨNG MỚI: HÀO QUANG BẠC CHO NGƯỜI TRUY CẬP SỚM */
+        /* HIỆU ỨNG MỚI: HÀO QUANG BẠC CHO NGƯỜI Truy cập sớm */
         @keyframes silver-glow-effect {
             0%, 100% { box-shadow: 0 0 15px rgba(192, 192, 192, 0.6); border-color: #e2e8f0; }
             50% { box-shadow: 0 0 35px rgba(226, 232, 240, 0.9); border-color: #ffffff; }
@@ -55,12 +54,6 @@
             0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
             50% { opacity: 1; transform: translateY(-20px) rotate(180deg) scale(1.2); }
             100% { transform: translateY(-40px) rotate(360deg) scale(0); opacity: 0; }
-        }
-
-        /* HIỆU ỨNG MỚI: FRAME ẢNH LỚP */
-        @keyframes photo-pop {
-            0% { transform: scale(0.9) rotate(-2deg); opacity: 0; }
-            100% { transform: scale(1) rotate(0deg); opacity: 1; }
         }
 
         .silver-star-particle {
@@ -110,7 +103,6 @@
         .monitor-glow { animation: glow 2s ease-in-out infinite; border-width: 4px !important; }
         .early-silver-glow { animation: silver-glow-effect 2s ease-in-out infinite; border-width: 5px !important; }
         .teacher-glow-effect { animation: teacher-glow 3s ease-in-out infinite; border-width: 6px !important; }
-        .photo-card-animate { animation: photo-pop 0.5s ease-out forwards; }
         
         /* Tùy chỉnh thanh cuộn cho Modal */
         .custom-scrollbar::-webkit-scrollbar { width: 8px; }
@@ -122,7 +114,7 @@
         
         /* Hiệu ứng tương tác cho các lựa chọn màu sắc */
         .theme-option { cursor: pointer; transition: all 0.3s; border: 4px solid transparent; }
-        .theme-option.selected { border-color: #3b82f6; transform: scale(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .theme-option.selected { border-color: #3b82f6; transform: scale(1.1); }
 
         /* Giao diện Command Line cho Admin */
         #cmd-line {
@@ -177,18 +169,44 @@
             font-weight: bold;
         }
 
-        /* MASONRY GALLERY STYLES */
-        .gallery-grid {
-            column-count: 1;
-            column-gap: 1.5rem;
+        /** CÁC STYLE MỚI CHO ALBUM KỶ NIỆM **/
+        .memory-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        @media (min-width: 640px) { .gallery-grid { column-count: 2; } }
-        @media (min-width: 1024px) { .gallery-grid { column-count: 3; } }
-
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 1.5rem;
+        .memory-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            z-index: 40;
         }
+        .viewer-btn {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+        .viewer-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        #gallery-viewer {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-left-color: #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="min-h-screen bg-gradient-to-b from-[#e0f2fe] via-[#38bdf8] to-[#0c4a6e] relative selection:bg-blue-200 text-slate-800">
@@ -257,24 +275,31 @@
             </div>
         </section>
 
-        <!-- KHU VỰC KHOẢNH KHẮC LỚP MÌNH (TÍNH NĂNG MỚI) -->
-        <section id="gallery-section" class="mb-32">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
-                <div class="text-center md:text-left">
-                    <h2 class="text-4xl md:text-5xl font-black text-white drop-shadow-lg uppercase tracking-tight">Khoảnh Khắc 6A2</h2>
-                    <p class="text-blue-100 font-bold italic mt-2">Nơi lưu giữ những kỷ niệm đẹp nhất của chúng mình...</p>
+        <!-- PHẦN MỚI: ALBUM KHOẢNH KHẮC 6A2 -->
+        <section class="max-w-6xl mx-auto mb-32">
+            <div class="flex flex-col md:flex-row items-end justify-between gap-6 mb-12 px-4">
+                <div>
+                    <h2 class="text-5xl font-black text-white drop-shadow-lg flex items-center gap-4">
+                        <i data-lucide="camera" class="w-10 h-10 text-yellow-300"></i>
+                        KHOẢNH KHẮC 6A2
+                    </h2>
+                    <p class="text-blue-100 font-bold mt-2 italic text-lg">Nơi lưu giữ kỷ niệm đẹp nhất của chúng mình!</p>
                 </div>
-                <button onclick="openPhotoUpload()" class="group relative px-8 py-4 bg-white text-blue-600 font-black rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 overflow-hidden">
-                    <div class="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                    <i data-lucide="image-plus" class="w-6 h-6 relative z-10 group-hover:text-white transition-colors"></i>
-                    <span class="relative z-10 group-hover:text-white transition-colors">ĐĂNG ẢNH MỚI</span>
-                </button>
+                <div class="flex items-center gap-4">
+                    <input type="file" id="memory-upload" class="hidden" accept="image/*,video/*" multiple onchange="handleMemoryUpload(this)">
+                    <button onclick="document.getElementById('memory-upload').click()" class="bg-white hover:bg-yellow-400 text-blue-900 px-8 py-4 rounded-2xl font-black shadow-xl transition-all flex items-center gap-3 active:scale-95 group">
+                        <i data-lucide="plus-circle" class="w-6 h-6 group-hover:rotate-90 transition-transform"></i>
+                        GỬI TẶNG CÔ & LỚP
+                    </button>
+                </div>
             </div>
-            
-            <div id="photo-gallery" class="gallery-grid">
-                <!-- Ảnh sẽ được load ở đây -->
-                <div class="col-span-full py-20 text-center text-white/50 font-black italic">
-                    Đang tải những kỷ niệm...
+
+            <!-- Grid hiển thị ảnh/video -->
+            <div id="memories-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Data từ Supabase sẽ load vào đây -->
+                <div class="col-span-full py-20 text-center bg-white/10 backdrop-blur-md rounded-[3rem] border-4 border-dashed border-white/20">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-white font-black uppercase tracking-widest">Đang tải album lớp...</p>
                 </div>
             </div>
         </section>
@@ -330,7 +355,38 @@
         </div>
     </div>
 
-    <!-- MODAL HIỂN THỊ THÔNG TIN CHI TIẾT -->
+    <!-- HỆ THỐNG XEM ALBUM (GALLERY VIEWER) -->
+    <div id="gallery-viewer">
+        <!-- Nút đóng -->
+        <button onclick="closeViewer()" class="absolute top-10 right-10 text-white hover:text-red-400 transition-all z-[210]">
+            <i data-lucide="x" class="w-12 h-12"></i>
+        </button>
+
+        <!-- Nội dung hiển thị -->
+        <div id="viewer-stage" class="w-full h-full flex items-center justify-center p-4 md:p-20">
+            <!-- Ảnh hoặc Video sẽ được chèn vào đây -->
+        </div>
+
+        <!-- Nút điều hướng -->
+        <div class="absolute inset-y-0 left-0 flex items-center px-6">
+            <button onclick="prevSlide()" class="viewer-btn text-white p-6 rounded-full">
+                <i data-lucide="chevron-left" class="w-10 h-10"></i>
+            </button>
+        </div>
+        <div class="absolute inset-y-0 right-0 flex items-center px-6">
+            <button onclick="nextSlide()" class="viewer-btn text-white p-6 rounded-full">
+                <i data-lucide="chevron-right" class="w-10 h-10"></i>
+            </button>
+        </div>
+
+        <!-- Chú thích & Chỉ số -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 text-center text-white space-y-2">
+            <p id="viewer-index" class="text-sm font-black tracking-widest opacity-60">1 / 1</p>
+            <p id="viewer-caption" class="text-2xl font-black italic">Khoảnh khắc 6A2</p>
+        </div>
+    </div>
+
+    <!-- MODAL HIỂN THỊ THÔNG TIN CHI TIẾT HỌC SINH -->
     <div id="modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-8 bg-sky-950/80 backdrop-blur-xl transition-all">
         <div class="bg-white rounded-[4rem] w-full max-w-2xl overflow-hidden shadow-[0_32px_64px_rgba(0,0,0,0.5)] border-[12px] border-white/20 relative">
             <div id="modal-header" class="p-10 flex justify-between items-center text-white bg-gradient-to-r from-sky-600 to-blue-700">
@@ -380,7 +436,7 @@
 
     <script>
         /**
-         * HỆ THỐNG JAVASCRIPT LỚP 6A2 - PHIÊN BẢN KỶ NIỆM (ẢNH & GRADIENT MỚI)
+         * HỆ THỐNG JAVASCRIPT LỚP 6A2 - PHIÊN BẢN NÂNG CẤP ALBUM KỶ NIỆM
          */
 
         // --- KẾT NỐI SERVER ---
@@ -390,37 +446,28 @@
 
         // --- TRẠNG THÁI ỨNG DỤNG ---
         let students = {}; 
-        let classPhotos = [];
+        let memories = []; // Danh sách album kỷ niệm
+        let currentMemoryIndex = 0;
         let birthdayList = new Set(); 
         let mySlotIndex = localStorage.getItem('6A2_my_slot'); 
         let selectedSlot = null;
         let viewMode = 'view';
         let currentTheme = 'bg-white'; 
         let currentImageBase64 = null;
-        let uploadPhotoBase64 = null;
         
         // Biến xử lý vuốt (Swipe)
         let touchStartX = 0;
         let touchEndX = 0;
 
-        // BẢNG MÀU GRADIENT MỚI (KẾT HỢP 2 MÀU)
         const colorThemes = [
             { name: 'Trắng tinh khôi', class: 'bg-white text-blue-900' },
             { name: 'Xanh bình yên', class: 'bg-gradient-to-br from-blue-50 to-sky-100 text-blue-900' },
             { name: 'Hồng mộng mơ', class: 'bg-gradient-to-br from-rose-50 to-pink-100 text-rose-900' },
             { name: 'Vàng nắng hạ', class: 'bg-gradient-to-br from-amber-50 to-yellow-100 text-amber-900' },
             { name: 'Tím huyền bí', class: 'bg-gradient-to-br from-purple-50 to-indigo-100 text-purple-900' },
-            { name: 'Hoàng hôn rực rỡ', class: 'bg-gradient-to-br from-orange-400 to-pink-500 text-white' },
-            { name: 'Đại dương xanh', class: 'bg-gradient-to-br from-cyan-400 to-blue-600 text-white' },
-            { name: 'Rừng nhiệt đới', class: 'bg-gradient-to-br from-emerald-400 to-teal-600 text-white' },
-            { name: 'Vũ trụ huyền diệu', class: 'bg-gradient-to-br from-indigo-600 to-purple-700 text-white' },
-            { name: 'Kẹo ngọt', class: 'bg-gradient-to-br from-fuchsia-400 to-purple-500 text-white' },
-            { name: 'Lửa hồng', class: 'bg-gradient-to-br from-red-500 to-orange-400 text-white' },
-            { name: 'Chanh sả', class: 'bg-gradient-to-br from-lime-400 to-green-600 text-white' },
-            { name: 'Bạc hà mát lạnh', class: 'bg-gradient-to-br from-teal-200 to-cyan-400 text-blue-900' },
-            { name: 'Sắc màu tương lai', class: 'bg-gradient-to-br from-violet-400 to-indigo-500 text-white' },
-            { name: 'Cát vàng', class: 'bg-gradient-to-br from-yellow-200 to-amber-500 text-amber-950' },
-            { name: 'Xám sang trọng', class: 'bg-gradient-to-br from-slate-100 to-slate-400 text-slate-900' }
+            { name: 'Lục bảo', class: 'bg-gradient-to-br from-emerald-50 to-teal-100 text-emerald-900' },
+            { name: 'Hoàng hôn', class: 'bg-gradient-to-br from-orange-100 to-rose-200 text-orange-950' },
+            { name: 'Đại đương', class: 'bg-gradient-to-br from-cyan-200 to-blue-300 text-blue-950' }
         ];
 
         /**
@@ -436,59 +483,62 @@
                 checkAutoBirthdays();
                 renderTeacherSlot(); 
                 renderGrid(); 
-                fetchPhotos(); // Tải ảnh lớp
+                fetchMemories(); // Tải album sau khi tải danh sách lớp
             } catch (err) {
                 console.error('Lỗi tải dữ liệu:', err.message);
             }
         }
 
         /**
-         * Tải ảnh từ thư viện kỷ niệm
+         * TẢI DANH SÁCH ALBUM ẢNH/VIDEO
          */
-        async function fetchPhotos() {
+        async function fetchMemories() {
             try {
-                // Giả định bạn có bảng 'class_photos' trong Supabase
-                const { data, error } = await supabaseClient.from('class_photos').select('*').order('created_at', { ascending: false });
-                if (error) {
-                    console.log("Gợi ý: Hãy tạo bảng 'class_photos' với id, photo_data, caption, created_at");
-                    return;
-                }
-                classPhotos = data;
-                renderGallery();
-            } catch (err) { console.error(err); }
+                const { data, error } = await supabaseClient
+                    .from('memories')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+                
+                if (error) throw error;
+                memories = data || [];
+                renderMemoriesGrid();
+            } catch (err) {
+                console.error('Lỗi tải album:', err.message);
+            }
         }
 
         /**
-         * Hiển thị thư viện ảnh
+         * HIỂN THỊ ALBUM LÊN GIAO DIỆN
          */
-        function renderGallery() {
-            const gallery = document.getElementById('photo-gallery');
-            if (classPhotos.length === 0) {
-                gallery.innerHTML = `
-                    <div class="col-span-full py-16 bg-white/10 rounded-[3rem] border-4 border-dashed border-white/20 text-center text-white/60">
-                        <i data-lucide="camera-off" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
-                        <p class="font-black uppercase tracking-widest">Chưa có tấm ảnh nào được chia sẻ.</p>
-                        <p class="text-sm mt-2 font-bold italic">Hãy là người đầu tiên đăng khoảnh khắc đẹp!</p>
+        function renderMemoriesGrid() {
+            const grid = document.getElementById('memories-grid');
+            if (memories.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-20 text-center bg-white/10 backdrop-blur-md rounded-[3rem] border-4 border-dashed border-white/20">
+                        <i data-lucide="image-plus" class="w-16 h-16 text-white/30 mx-auto mb-4"></i>
+                        <p class="text-white font-black uppercase tracking-widest">Album đang trống. Hãy là người đầu tiên đăng ảnh!</p>
                     </div>
                 `;
                 lucide.createIcons();
                 return;
             }
 
-            gallery.innerHTML = classPhotos.map((photo, index) => `
-                <div class="gallery-item photo-card-animate" style="animation-delay: ${index * 0.1}s">
-                    <div class="bg-white p-4 rounded-[2rem] shadow-2xl hover:scale-[1.02] transition-transform group relative overflow-hidden">
-                        <img src="${photo.photo_data}" class="w-full h-auto rounded-[1.5rem] object-cover" alt="Kỷ niệm 6A2">
-                        ${photo.caption ? `
-                        <div class="mt-4 px-2">
-                            <p class="text-slate-700 font-bold italic text-sm">"${photo.caption}"</p>
-                            <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-tighter">${new Date(photo.created_at).toLocaleDateString('vi-VN')}</span>
-                                <button onclick="deletePhoto(${photo.id})" class="opacity-0 group-hover:opacity-100 text-rose-400 hover:text-rose-600 transition-all">
-                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                </button>
-                            </div>
-                        </div>` : ''}
+            grid.innerHTML = memories.map((item, index) => `
+                <div onclick="openViewer(${index})" class="memory-card relative aspect-[4/3] rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl group border-4 border-white/50">
+                    ${item.type === 'image' 
+                        ? `<img src="${item.url}" class="w-full h-full object-cover">` 
+                        : `<div class="w-full h-full bg-slate-800 flex items-center justify-center">
+                                <video src="${item.url}" class="w-full h-full object-cover opacity-60"></video>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border-2 border-white">
+                                        <i data-lucide="play" class="w-8 h-8 text-white fill-white"></i>
+                                    </div>
+                                </div>
+                           </div>`
+                    }
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
+                        <p class="text-white font-bold italic truncate">${item.caption || 'Khoảnh khắc lớp mình'}</p>
+                        <p class="text-white/60 text-[10px] uppercase tracking-widest mt-1">${new Date(item.created_at).toLocaleDateString('vi-VN')}</p>
                     </div>
                 </div>
             `).join('');
@@ -496,88 +546,98 @@
         }
 
         /**
-         * Mở giao diện tải ảnh
+         * XỬ LÝ UPLOAD KỶ NIỆM (ẢNH/VIDEO)
          */
-        function openPhotoUpload() {
-            viewMode = 'upload_photo';
-            const modal = document.getElementById('modal');
-            const header = document.getElementById('modal-header');
-            header.className = 'p-10 flex justify-between items-center text-white bg-gradient-to-r from-blue-500 to-indigo-600';
-            document.getElementById('modal-title').innerText = 'Đăng Ảnh Kỷ Niệm';
-            document.getElementById('modal-subtitle').innerText = 'CHIA SẺ KHOẢNH KHẮC 6A2';
-            document.getElementById('modal-icon').innerHTML = '<i data-lucide="image" class="w-7 h-7"></i>';
-            document.getElementById('edit-btn').classList.add('hidden');
-            document.getElementById('delete-btn').classList.add('hidden');
+        async function handleMemoryUpload(input) {
+            const files = input.files;
+            if (!files.length) return;
 
-            const content = document.getElementById('modal-content');
-            content.innerHTML = `
-                <div class="space-y-8 py-4">
-                    <div onclick="document.getElementById('photoInput').click()" class="relative cursor-pointer group">
-                        <div id="photo-preview" class="w-full aspect-video rounded-[2.5rem] bg-slate-100 border-8 border-dashed border-slate-200 group-hover:border-blue-400 flex flex-col items-center justify-center overflow-hidden transition-all duration-500 shadow-inner">
-                            <i data-lucide="camera" class="text-slate-300 w-16 h-16 mb-4 group-hover:scale-110 transition-transform"></i>
-                            <p class="font-black text-slate-400 uppercase tracking-widest text-sm">Nhấn để chọn ảnh</p>
-                        </div>
-                        <input type="file" id="photoInput" class="hidden" accept="image/*" onchange="handleGalleryImage(this)">
-                    </div>
-                    <div class="space-y-3">
-                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] px-3">Mô tả bức ảnh</label>
-                        <input id="photo-caption" placeholder="Bức ảnh này chụp lúc nào vậy nhỉ?..." class="w-full px-8 py-5 bg-white border-4 border-slate-100 focus:border-blue-400 rounded-[2rem] outline-none font-black text-blue-900 shadow-xl transition-all">
-                    </div>
-                    <div class="pt-4">
-                        <button onclick="submitPhoto()" id="photo-submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-black py-7 rounded-[2.5rem] shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 active:translate-y-1 transition-all uppercase tracking-[0.3em] text-xl">
-                            ĐĂNG LÊN THƯ VIỆN
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            const btn = document.querySelector('button[onclick*="memory-upload"]');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<div class="loading-spinner w-5 h-5"></div> ĐANG GỬI...`;
+
+            for (let file of files) {
+                try {
+                    const reader = new FileReader();
+                    const fileType = file.type.startsWith('video') ? 'video' : 'image';
+                    
+                    const uploadPromise = new Promise((resolve) => {
+                        reader.onload = async (e) => {
+                            const { error } = await supabaseClient.from('memories').insert([{
+                                url: e.target.result,
+                                type: fileType,
+                                caption: `Kỷ niệm từ 6A2 - ${new Date().toLocaleDateString('vi-VN')}`
+                            }]);
+                            resolve(error);
+                        };
+                    });
+
+                    reader.readAsDataURL(file);
+                    const error = await uploadPromise;
+                    if (error) throw error;
+
+                } catch (err) {
+                    alert('Lỗi khi tải file: ' + file.name);
+                }
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+            fetchMemories(); // Refresh album
+        }
+
+        /**
+         * HỆ THỐNG VIEWER (XEM CHI TIẾT ALBUM)
+         */
+        function openViewer(index) {
+            currentMemoryIndex = index;
+            document.getElementById('gallery-viewer').style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Khóa cuộn trang
+            updateViewerContent();
+        }
+
+        function closeViewer() {
+            document.getElementById('gallery-viewer').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            document.getElementById('viewer-stage').innerHTML = ''; // Giải phóng bộ nhớ
+        }
+
+        function updateViewerContent() {
+            const item = memories[currentMemoryIndex];
+            const stage = document.getElementById('viewer-stage');
+            const indexEl = document.getElementById('viewer-index');
+            const captionEl = document.getElementById('viewer-caption');
+
+            indexEl.innerText = `${currentMemoryIndex + 1} / ${memories.length}`;
+            captionEl.innerText = item.caption || 'Khoảnh khắc lớp mình';
+
+            if (item.type === 'image') {
+                stage.innerHTML = `<img src="${item.url}" class="max-w-full max-h-full object-contain shadow-2xl rounded-lg animate-in fade-in duration-500">`;
+            } else {
+                stage.innerHTML = `<video src="${item.url}" controls autoplay class="max-w-full max-h-full rounded-lg animate-in fade-in duration-500"></video>`;
+            }
             lucide.createIcons();
         }
 
-        function handleGalleryImage(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    uploadPhotoBase64 = e.target.result;
-                    document.getElementById('photo-preview').innerHTML = `<img src="${uploadPhotoBase64}" class="w-full h-full object-cover rounded-[2rem]">`;
-                };
-                reader.readAsDataURL(file);
+        function nextSlide() {
+            currentMemoryIndex = (currentMemoryIndex + 1) % memories.length;
+            updateViewerContent();
+        }
+
+        function prevSlide() {
+            currentMemoryIndex = (currentMemoryIndex - 1 + memories.length) % memories.length;
+            updateViewerContent();
+        }
+
+        // Lắng nghe phím mũi tên để chuyển ảnh
+        window.addEventListener('keydown', (e) => {
+            if (document.getElementById('gallery-viewer').style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+                if (e.key === 'Escape') closeViewer();
             }
-        }
-
-        async function submitPhoto() {
-            if (!uploadPhotoBase64) { alert("Vui lòng chọn ảnh trước!"); return; }
-            const caption = document.getElementById('photo-caption').value;
-            const btn = document.getElementById('photo-submit-btn');
-            
-            btn.disabled = true;
-            btn.innerText = "ĐANG TẢI LÊN...";
-
-            try {
-                const { error } = await supabaseClient.from('class_photos').insert([
-                    { photo_data: uploadPhotoBase64, caption: caption }
-                ]);
-                if (error) throw error;
-                await fetchPhotos();
-                closeModal();
-                uploadPhotoBase64 = null;
-            } catch (err) {
-                alert("Không thể đăng ảnh. Lỗi: " + err.message);
-                btn.disabled = false;
-                btn.innerText = "ĐĂNG LÊN THƯ VIỆN";
-            }
-        }
-
-        async function deletePhoto(id) {
-            if (!confirm("Bạn muốn xóa bức ảnh kỷ niệm này?")) return;
-            try {
-                await supabaseClient.from('class_photos').delete().eq('id', id);
-                fetchPhotos();
-            } catch (e) { alert("Lỗi khi xóa ảnh."); }
-        }
+        });
 
         /**
          * Kiểm tra sinh nhật
@@ -856,6 +916,12 @@
                         alert(`Đã MỞ KHÓA quyền chỉnh sửa cho ô #${slotId+1}!`);
                     }
                 }
+                else if (command === 'clear_memories') {
+                    if (confirm('Xóa sạch album lớp?')) {
+                        await supabaseClient.from('memories').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+                        fetchMemories();
+                    }
+                }
                 
                 e.target.value = '';
                 document.getElementById('cmd-line').style.display = 'none';
@@ -863,8 +929,13 @@
             }
         });
 
+        /**
+         * Hàm phụ cập nhật dữ liệu nhanh
+         */
         async function updateField(id, payload) {
-            try { await supabaseClient.from('students').update(payload).eq('id', id); } catch(e) { console.error(e); }
+            try {
+                await supabaseClient.from('students').update(payload).eq('id', id);
+            } catch(e) { console.error(e); }
         }
 
         /**
@@ -949,7 +1020,7 @@
                         </div>
                     </div>
                     <div class="space-y-3">
-                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3"><i data-lucide="heart" class="w-4 h-4 text-red-400"></i> Sở thích</label>
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3"><i data-lucide="heart" class="w-4 h-4 text-red-400"></i> ${isTeacher ? 'Đôi lời về cô' : 'Sở thích'}</label>
                         <div class="px-10 py-8 bg-white rounded-[2.5rem] text-slate-600 font-bold leading-relaxed italic border-t-8 border-sky-50 shadow-inner text-lg">"${student.hobby || 'Một bí ẩn chưa có lời giải...'}"</div>
                     </div>
                 </div>
@@ -958,19 +1029,37 @@
             attachSwipeListener();
         }
 
+        /**
+         * Gắn sự kiện vuốt để Khóa/Mở
+         */
         function attachSwipeListener() {
             const plate = document.getElementById('swipe-name-plate');
             if (!plate) return;
-            plate.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, false);
-            plate.addEventListener('touchend', (e) => { touchEndX = e.changedTouches[0].screenX; handleSwipeGesture(); }, false);
-            plate.addEventListener('mousedown', (e) => { touchStartX = e.screenX; }, false);
-            plate.addEventListener('mouseup', (e) => { touchEndX = e.screenX; handleSwipeGesture(); }, false);
+
+            plate.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+
+            plate.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipeGesture();
+            }, false);
+            
+            plate.addEventListener('mousedown', (e) => {
+                touchStartX = e.screenX;
+            }, false);
+
+            plate.addEventListener('mouseup', (e) => {
+                touchEndX = e.screenX;
+                handleSwipeGesture();
+            }, false);
         }
 
         async function handleSwipeGesture() {
             const diff = touchEndX - touchStartX;
-            const threshold = 100;
+            const threshold = 100; 
             const student = students[selectedSlot];
+
             if (!student) return;
 
             if (diff < -threshold) {
@@ -1026,7 +1115,7 @@
                 </div>
                 <div class="grid gap-8">
                     <div class="space-y-4">
-                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3">Chọn màu sắc chủ đạo (Hỗ trợ Gradient)</label>
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3">Bảng phối màu khung thông tin</label>
                         <div class="grid grid-cols-4 sm:grid-cols-8 gap-3" id="theme-selector">
                             ${colorThemes.map(t => `
                                 <div onclick="selectTheme('${t.class}', this)" 
@@ -1051,7 +1140,7 @@
                         </div>
                     </div>
                     <div class="space-y-3">
-                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3">Sở thích cá nhân</label>
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3">${isTeacher ? 'Đôi lời giới thiệu' : 'Sở thích'}</label>
                         <textarea id="form-hobby" placeholder="Chia sẻ cảm nghĩ..." class="w-full px-8 py-5 bg-white border-4 border-slate-100 focus:border-blue-400 rounded-[2.5rem] outline-none h-32 resize-none font-black text-blue-900 shadow-inner">${existingData?.hobby || ''}</textarea>
                     </div>
                     <div class="space-y-4 bg-blue-50/80 p-8 rounded-[3rem] border-4 border-blue-100">
@@ -1059,7 +1148,7 @@
                         <input id="form-password" type="password" placeholder="Mật khẩu của bạn..." class="w-full px-8 py-5 bg-white border-4 border-blue-200 focus:border-blue-600 rounded-[1.5rem] outline-none font-black text-blue-950 shadow-inner" value="${existingData?.password || ''}">
                     </div>
                     <div class="pt-4">
-                        <button onclick="submitForm()" id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-700 text-white font-black py-7 rounded-[2.5rem] shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 transition-all uppercase tracking-[0.3em] text-xl">
+                        <button onclick="submitForm()" id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-700 text-white font-black py-7 rounded-[2.5rem] shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all uppercase tracking-[0.3em] text-xl">
                             Cập Nhật Hồ Sơ
                         </button>
                     </div>
@@ -1074,6 +1163,9 @@
             el.classList.add('selected');
         }
 
+        /**
+         * Xác minh mật khẩu
+         */
         function editCurrentProfile() {
             viewMode = 'auth';
             const header = document.getElementById('modal-header');
@@ -1081,17 +1173,108 @@
             document.getElementById('modal-title').innerText = 'Xác Minh';
             document.getElementById('modal-icon').innerHTML = '<i data-lucide="lock" class="w-7 h-7"></i>';
             document.getElementById('edit-btn').classList.add('hidden');
+            document.getElementById('delete-btn').classList.add('hidden');
 
             const content = document.getElementById('modal-content');
             content.innerHTML = `
                 <div class="text-center py-12 space-y-8">
-                    <div class="w-28 h-28 bg-amber-100 text-amber-600 rounded-[2.5rem] flex items-center justify-center mx-auto shadow-inner"><i data-lucide="lock" class="w-14 h-14 animate-pulse"></i></div>
-                    <input id="verify-pass" type="password" placeholder="Mật khẩu..." class="w-full px-8 py-6 bg-white border-4 border-slate-100 focus:border-amber-400 rounded-[2rem] outline-none text-center text-2xl font-black text-amber-600 shadow-xl transition-all">
+                    <div class="w-28 h-28 bg-amber-100 text-amber-600 rounded-[2.5rem] flex items-center justify-center mx-auto shadow-inner">
+                        <i data-lucide="lock" class="w-14 h-14 animate-pulse"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-3xl font-black text-slate-800">Nhập mật khẩu</h4>
+                        <p class="text-slate-500 font-bold mt-2">Xác nhận mật khẩu để sửa hồ sơ lớp 6A2.</p>
+                    </div>
+                    <input id="verify-pass" type="password" autoFocus placeholder="..." class="w-full px-8 py-6 bg-white border-4 border-slate-100 focus:border-amber-400 rounded-[2rem] outline-none text-center text-2xl font-black text-amber-600 shadow-xl transition-all">
                     <div id="auth-error" class="text-red-500 text-sm font-black hidden">Mật khẩu không chính xác!</div>
-                    <button onclick="verifyPassword()" class="w-full bg-amber-500 text-white font-black py-6 rounded-[2rem] shadow-[0_10px_0_rgb(217,119,6)] active:translate-y-2 uppercase tracking-widest text-xl">Xác Nhận</button>
+                    <button onclick="verifyPassword()" class="w-full bg-amber-500 text-white font-black py-6 rounded-[2rem] shadow-[0_10px_0_rgb(217,119,6)] active:translate-y-2 active:shadow-none transition-all uppercase tracking-widest text-xl">Xác Nhận</button>
+                    <button onclick="renderForgotPassword()" class="text-amber-700 font-black text-sm uppercase tracking-widest hover:underline mt-4 block mx-auto">Quên mật khẩu?</button>
                 </div>
             `;
             lucide.createIcons();
+        }
+
+        /**
+         * Khôi phục mật khẩu
+         */
+        function renderForgotPassword() {
+            const lockTime = localStorage.getItem('forgot_password_lock');
+            const now = Date.now();
+            
+            if (lockTime && now < parseInt(lockTime)) {
+                const timeLeft = Math.ceil((parseInt(lockTime) - now) / 1000);
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+
+                const content = document.getElementById('modal-content');
+                content.innerHTML = `
+                    <div class="text-center py-20 space-y-6">
+                        <div class="w-24 h-24 bg-red-100 text-red-500 rounded-full flex items-center justify-center mx-auto shadow-inner">
+                            <i data-lucide="clock" class="w-12 h-12"></i>
+                        </div>
+                        <h4 class="text-2xl font-black text-slate-800 uppercase">Tính năng tạm khóa</h4>
+                        <p class="text-slate-500 font-bold px-10">Vui lòng đợi <span class="text-red-500 font-black">${minutes}:${seconds < 10 ? '0' + seconds : seconds}</span> nữa.</p>
+                        <button onclick="editCurrentProfile()" class="bg-slate-200 text-slate-700 px-10 py-4 rounded-2xl font-black uppercase tracking-widest mt-4">Quay lại</button>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            const header = document.getElementById('modal-header');
+            header.className = 'p-10 flex justify-between items-center text-white bg-gradient-to-r from-amber-400 to-orange-500';
+            document.getElementById('modal-title').innerText = 'Khôi Phục';
+
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="text-center py-10 space-y-8">
+                    <div class="w-28 h-28 bg-amber-50 text-amber-500 rounded-[2.5rem] flex items-center justify-center mx-auto shadow-inner border-4 border-amber-100">
+                        <i data-lucide="search" class="w-14 h-14 animate-pulse"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-3xl font-black text-amber-800 uppercase tracking-tight">Tìm mật khẩu</h4>
+                        <p class="text-slate-500 font-bold mt-2">Vui lòng nhập <span class="text-amber-600">Họ và Tên</span> đã đăng ký.</p>
+                    </div>
+                    <input id="forgot-name-input" type="text" placeholder="..." class="w-full px-8 py-6 bg-white border-4 border-amber-100 focus:border-blue-400 rounded-[2.5rem] outline-none text-center text-2xl font-black text-amber-600 shadow-xl transition-all max-w-sm mx-auto">
+                    <div id="forgot-status" class="hidden font-black text-blue-500 animate-bounce">Đang quét...</div>
+                    <div id="forgot-result" class="hidden p-8 bg-gradient-to-br from-blue-50 to-sky-100 border-4 border-blue-200 rounded-[2.5rem] text-blue-800 font-black text-2xl"></div>
+                    <div class="flex gap-4 max-w-md mx-auto pt-4">
+                        <button onclick="editCurrentProfile()" class="flex-1 bg-amber-100 text-amber-700 font-black py-5 rounded-[2rem] hover:bg-amber-200 transition-all uppercase tracking-widest text-sm">Hủy</button>
+                        <button id="forgot-submit-btn" onclick="processForgotPassword()" class="flex-[2] bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-black py-5 rounded-[2rem] shadow-[0_10px_0_rgb(37,99,235)] active:translate-y-2 uppercase tracking-widest text-lg">Xác Nhận</button>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        async function processForgotPassword() {
+            const inputName = document.getElementById('forgot-name-input').value.trim();
+            const statusEl = document.getElementById('forgot-status');
+            const resultEl = document.getElementById('forgot-result');
+            const submitBtn = document.getElementById('forgot-submit-btn');
+
+            if (!inputName) return;
+
+            statusEl.classList.remove('hidden');
+            resultEl.classList.add('hidden');
+            submitBtn.disabled = true;
+
+            try {
+                const { data, error } = await supabaseClient.from('students').select('password').eq('id', selectedSlot).eq('name', inputName).single();
+                await new Promise(r => setTimeout(r, 2000));
+
+                if (error || !data) {
+                    statusEl.innerText = "Họ tên không khớp!";
+                    statusEl.classList.replace('text-blue-500', 'text-red-500');
+                    submitBtn.disabled = false;
+                } else {
+                    statusEl.classList.add('hidden');
+                    resultEl.innerHTML = `<span class="text-sm block mb-2">Mật khẩu:</span> ${data.password}`;
+                    resultEl.classList.remove('hidden');
+                    localStorage.setItem('forgot_password_lock', (Date.now() + 300000).toString());
+                    submitBtn.innerText = "Xong!";
+                }
+            } catch (err) { statusEl.innerText = "Lỗi!"; submitBtn.disabled = false; }
         }
 
         function verifyPassword() {
@@ -1100,17 +1283,28 @@
             if (student && student.password === pass) {
                 viewMode = 'edit';
                 renderEditContent(student);
-            } else { document.getElementById('auth-error').classList.remove('hidden'); }
+            } else {
+                document.getElementById('auth-error').classList.remove('hidden');
+            }
         }
 
+        /**
+         * Xác nhận xóa
+         */
         function confirmDelete() {
             const student = students[selectedSlot];
             const content = document.getElementById('modal-content');
             content.innerHTML = `
                 <div class="text-center py-12 space-y-8">
-                    <div class="w-28 h-28 bg-rose-100 text-rose-600 rounded-[2.5rem] flex items-center justify-center mx-auto shadow-inner"><i data-lucide="trash-2" class="w-14 h-14 animate-bounce"></i></div>
-                    <p class="text-slate-500 font-bold mt-2">Nhập tên <span class="text-rose-600 font-black">"${student.name}"</span> để xóa.</p>
+                    <div class="w-28 h-28 bg-rose-100 text-rose-600 rounded-[2.5rem] flex items-center justify-center mx-auto shadow-inner">
+                        <i data-lucide="trash-2" class="w-14 h-14 animate-bounce"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-3xl font-black text-slate-800 uppercase">Xác nhận xóa</h4>
+                        <p class="text-slate-500 font-bold mt-2">Nhập tên <span class="text-rose-600">"${student.name}"</span> để xóa.</p>
+                    </div>
                     <input id="confirm-name-delete" type="text" placeholder="..." class="w-full px-8 py-6 bg-white border-4 border-slate-100 focus:border-rose-400 rounded-[2rem] outline-none text-center text-2xl font-black text-rose-600 shadow-xl">
+                    <div id="delete-error" class="text-red-500 text-sm font-black hidden">Sai tên!</div>
                     <div class="flex gap-4">
                         <button onclick="renderEditContent(students[selectedSlot])" class="flex-1 bg-slate-200 text-slate-700 font-black py-6 rounded-[2rem] uppercase">Hủy</button>
                         <button onclick="executeDelete()" class="flex-[2] bg-rose-600 text-white font-black py-6 rounded-[2rem] shadow-[0_10px_0_rgb(159,18,57)] uppercase">Xóa</button>
@@ -1131,7 +1325,7 @@
                     await fetchStudents();
                     closeModal();
                 } catch (e) { alert(e.message); }
-            }
+            } else { document.getElementById('delete-error').classList.remove('hidden'); }
         }
 
         function handleImage(input) {
@@ -1146,6 +1340,9 @@
             }
         }
 
+        /**
+         * Lưu dữ liệu vào Supabase
+         */
         async function submitForm() {
             const isTeacher = selectedSlot === 99;
             const name = isTeacher ? "Cô Nguyễn Thị Hồng Nhung" : document.getElementById('form-name').value;
@@ -1153,6 +1350,7 @@
             const btn = document.getElementById('submit-btn');
 
             if (!name || !password) { alert("Thiếu tên hoặc mật khẩu!"); return; }
+
             btn.disabled = true;
             btn.innerText = "ĐANG LƯU...";
 
@@ -1167,7 +1365,7 @@
                 avatar_image: currentImageBase64 || (students[selectedSlot]?.avatar_image || null),
                 role: isTeacher ? 'teacher' : (students[selectedSlot]?.role || 'student'),
                 is_early: students[selectedSlot]?.is_early || false,
-                is_locked: students[selectedSlot]?.is_locked || false
+                is_locked: students[selectedSlot]?.is_locked || false 
             };
 
             try {
@@ -1176,23 +1374,27 @@
                 if (!isTeacher) { localStorage.setItem('6A2_my_slot', selectedSlot); mySlotIndex = selectedSlot; }
                 await fetchStudents();
                 closeModal();
-            } catch (err) { alert(err.message); btn.disabled = false; }
+            } catch (err) {
+                alert("Lỗi: " + err.message);
+                btn.disabled = false;
+            }
         }
 
+        /**
+         * KHỞI TẠO WEBSITE
+         */
         window.onload = () => {
             initDecorations();
             fetchStudents(); 
-            console.log("6A2 Long Trường - Tính năng Ảnh & Gradient Mới đã sẵn sàng.");
+            console.log("6A2 Long Trường - Hệ thống Album Kỷ niệm đã sẵn sàng.");
         };
 
         /**
-         * LƯU Ý CHO SUPABASE:
-         * Để sử dụng tính năng ảnh lớp, bạn cần tạo bảng 'class_photos' trong Database của mình:
-         * - id: int8 (Primary Key, Auto-increment)
-         * - photo_data: text (Lưu chuỗi base64 của ảnh)
-         * - caption: text (Mô tả ảnh)
-         * - created_at: timestamp with time zone (Mặc định: now())
+         * Cấu trúc DB cần thiết (Tóm tắt cho Supabase):
+         * 1. Bảng `students`: id, name, birthday, dream, hobby, password, color_theme, avatar_image, role, is_early, is_locked.
+         * 2. Bảng `memories`: id (uuid), url (text), type (text), caption (text), created_at (timestamp).
          */
     </script>
 </body>
 </html>
+--- END OF FILE ---
