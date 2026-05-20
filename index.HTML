@@ -1,192 +1,149 @@
---- START OF FILE Lớp 6A2 backup.html ---
+--- START OF FILE text/html ---
 
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lớp 6A2 - Mùa Hè Rực Rỡ - THCS Long Trường</title>
-    
-    <!-- NHÚNG THƯ VIỆN CÔNG CỤ -->
+    <title>Lớp 6A2 - THCS Long Trường (Phiên bản Kỷ Niệm)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    
     <!-- THƯ VIỆN SUPABASE - HỆ THỐNG QUẢN TRỊ DỮ LIỆU ĐÁM MÂY -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- PHÔNG CHỮ CHUẨN HIỆN ĐẠI -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
         /**
-         * ============================================================
-         * HỆ THỐNG CSS CUSTOM - GIAO DIỆN MÙA HÈ PHƯỢNG VĨ LỚP 6A2
-         * Designer: AI Upgrade Version (High Fidelity)
-         * Theme: Summer Phoenix (Nắng Vàng & Trời Xanh)
-         * ============================================================
+         * HỆ THỐNG CSS CUSTOM - LỚP 6A2 LONG TRƯỜNG
+         * PHIÊN BẢN CẬP NHẬT TÍNH NĂNG KHOẢNH KHẮC VÀ THEME MÀU MỚI
          */
-        
-        :root {
-            --summer-red: #ef4444;
-            --summer-gold: #facc15;
-            --summer-orange: #f97316;
-            --phoenix-dark: #991b1b;
-            --sky-blue: #0ea5e9;
-        }
-
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
-            background-attachment: fixed;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
         }
         
-        /* Hiệu ứng cánh hoa phượng rơi lãng mạn */
-        @keyframes petalFall {
-            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 0.8; }
-            100% { transform: translateY(110vh) translateX(100px) rotate(720deg); opacity: 0; }
-        }
-
-        .petal {
-            position: fixed;
-            background: linear-gradient(to bottom right, #ff4d4d, #b30000);
-            border-radius: 100% 0% 100% 0% / 100% 0% 100% 0%;
-            z-index: 5;
-            pointer-events: none;
-            animation: petalFall linear infinite;
+        /* Hiệu ứng mây bay ngang màn hình */
+        @keyframes floatOver { 
+            0% { transform: translateX(-500px); } 
+            100% { transform: translateX(calc(100vw + 500px)); } 
         }
         
-        /* Hiệu ứng mây mùa hè trôi lơ lửng */
-        @keyframes cloudFloat {
-            0% { transform: translateX(-100%) translateY(0); opacity: 0; }
-            10% { opacity: 0.4; }
-            90% { opacity: 0.4; }
-            100% { transform: translateX(200%) translateY(20px); opacity: 0; }
-        }
-
-        .summer-cloud {
-            position: fixed;
-            background: white;
-            filter: blur(40px);
-            border-radius: 50%;
-            z-index: 2;
-            pointer-events: none;
-            animation: cloudFloat linear infinite;
+        /* Hiệu ứng lấp lánh của các vì sao */
+        @keyframes twinkle { 
+            0%, 100% { opacity: 0.3; transform: scale(0.8); } 
+            50% { opacity: 0.8; transform: scale(1.2); } 
         }
         
-        /* Hiệu ứng nắng chói chang (Sun Glare/Bokeh) */
-        @keyframes sunGlare {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.2); }
-        }
-
-        .sun-ray-particle {
-            position: fixed;
-            background: radial-gradient(circle, rgba(253, 224, 71, 0.4) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: 1;
-            pointer-events: none;
-            animation: sunGlare 4s ease-in-out infinite;
-        }
-        
-        /* Hiệu ứng sóng nhiệt mùa hè */
-        @keyframes heatWave {
-            0% { filter: url(#wavy) blur(0px); }
-            50% { filter: url(#wavy) blur(1px); }
-            100% { filter: url(#wavy) blur(0px); }
-        }
-
-        .heat-distortion {
-            animation: heatWave 5s ease-in-out infinite;
-        }
-
-        /* Hiệu ứng tia nắng mặt trời mùa hè quay chậm */
+        /* Hiệu ứng quay chậm cho tia nắng mặt trời */
         @keyframes spin-slow { 
             from { transform: rotate(0deg); } 
             to { transform: rotate(360deg); } 
         }
         
-        /* Hiệu ứng hào quang vàng cho Lớp trưởng */
-        @keyframes monitor-glow { 
-            0%, 100% { box-shadow: 0 0 25px rgba(234, 179, 8, 0.6); border-color: #facc15; } 
-            50% { box-shadow: 0 0 45px rgba(234, 179, 8, 0.9); border-color: #fbbf24; } 
+        /* Hiệu ứng phát sáng cho Lớp trưởng */
+        @keyframes glow { 
+            0%, 100% { box-shadow: 0 0 20px rgba(255,215,0,0.5); border-color: #ffd700; } 
+            50% { box-shadow: 0 0 40px rgba(255,215,0,0.8); border-color: #facc15; } 
         }
 
-        /* Hiệu ứng hào quang bạc cho Ngôi sao ưu tiên */
-        @keyframes early-glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(226, 232, 240, 0.5); border-color: #f1f5f9; }
-            50% { box-shadow: 0 0 35px rgba(226, 232, 240, 0.8); border-color: #ffffff; }
+        /* HIỆU ỨNG MỚI: HÀO QUANG BẠC CHO NGƯỜI TRUY CẬP SỚM */
+        @keyframes silver-glow-effect {
+            0%, 100% { box-shadow: 0 0 15px rgba(192, 192, 192, 0.6); border-color: #e2e8f0; }
+            50% { box-shadow: 0 0 35px rgba(226, 232, 240, 0.9); border-color: #ffffff; }
         }
 
-        /* Hiệu ứng ngôi sao bạc lơ lửng cho người truy cập sớm */
-        @keyframes star-float {
+        /* HIỆU ỨNG MỚI: NGÔI SAO BẠC BAY LƠ LỬNG */
+        @keyframes silver-star-float {
             0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
-            50% { opacity: 1; transform: translateY(-25px) rotate(180deg) scale(1.3); }
-            100% { transform: translateY(-50px) rotate(360deg) scale(0); opacity: 0; }
+            50% { opacity: 1; transform: translateY(-20px) rotate(180deg) scale(1.2); }
+            100% { transform: translateY(-40px) rotate(360deg) scale(0); opacity: 0; }
         }
 
-        .star-particle {
+        /* HIỆU ỨNG MỚI: FRAME ẢNH LỚP */
+        @keyframes photo-pop {
+            0% { transform: scale(0.9) rotate(-2deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .silver-star-particle {
             position: absolute;
-            color: #e2e8f0;
+            color: #cbd5e1;
             pointer-events: none;
             z-index: 30;
-            animation: star-float 3s linear infinite;
+            animation: silver-star-float 3s linear infinite;
         }
         
-        /* Hiệu ứng hào quang cho Giáo viên chủ nhiệm (Màu Đỏ Cam rực rỡ) */
+        /* Hiệu ứng phát sáng đặc biệt dành riêng cho Giáo viên chủ nhiệm */
         @keyframes teacher-glow { 
-            0%, 100% { box-shadow: 0 0 40px rgba(239, 68, 68, 0.4); border-color: #ef4444; } 
-            50% { box-shadow: 0 0 80px rgba(239, 68, 68, 0.7); border-color: #f87171; } 
+            0%, 100% { box-shadow: 0 0 35px rgba(59, 130, 246, 0.4); } 
+            50% { box-shadow: 0 0 70px rgba(59, 130, 246, 0.7); } 
         }
         
-        /* Hiệu ứng bóng bay sinh nhật */
+        /* Hiệu ứng bóng bay nổi lên khi có sinh nhật */
         @keyframes balloonUp {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-20vh) rotate(30deg); opacity: 0; }
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-20vh) rotate(20deg); opacity: 0; }
         }
 
         .balloon {
             position: fixed;
             bottom: -100px;
-            width: 45px;
-            height: 55px;
-            border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
-            z-index: 60;
+            width: 40px;
+            height: 50px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            z-index: 50;
             pointer-events: none;
             animation: balloonUp linear infinite;
         }
 
-        /* Các lớp tiện ích CSS */
-        .animate-spin-slow { animation: spin-slow 25s linear infinite; }
-        .monitor-glow-effect { animation: monitor-glow 2s ease-in-out infinite; border-width: 4px !important; }
-        .early-silver-glow { animation: early-glow 2s ease-in-out infinite; border-width: 5px !important; }
-        .teacher-gold-glow { animation: teacher-glow 3s ease-in-out infinite; border-width: 6px !important; }
+        .balloon::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 2px;
+            height: 20px;
+            background: rgba(255,255,255,0.5);
+        }
+
+        /* Các class tiện ích hỗ trợ animation */
+        .animate-spin-slow { animation: spin-slow 30s linear infinite; }
+        .animate-twinkle { animation: twinkle linear infinite; }
+        .monitor-glow { animation: glow 2s ease-in-out infinite; border-width: 4px !important; }
+        .early-silver-glow { animation: silver-glow-effect 2s ease-in-out infinite; border-width: 5px !important; }
+        .teacher-glow-effect { animation: teacher-glow 3s ease-in-out infinite; border-width: 6px !important; }
+        .photo-card-animate { animation: photo-pop 0.5s ease-out forwards; }
         
-        /* Custom Scrollbar cho Modal */
-        .custom-scrollbar::-webkit-scrollbar { width: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: #fff7ed; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #fca5a5; border-radius: 10px; border: 3px solid #fff7ed; }
+        /* Tùy chỉnh thanh cuộn cho Modal */
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #bae6fd; border-radius: 20px; border: 2px solid white; }
         
-        /* Command Line Interface (CLI) */
+        /* Cấu hình vị trí mây */
+        .cloud-animate { position: absolute; opacity: 0.5; filter: blur(1px); pointer-events: none; }
+        
+        /* Hiệu ứng tương tác cho các lựa chọn màu sắc */
+        .theme-option { cursor: pointer; transition: all 0.3s; border: 4px solid transparent; }
+        .theme-option.selected { border-color: #3b82f6; transform: scale(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+        /* Giao diện Command Line cho Admin */
         #cmd-line {
             display: none;
             position: fixed;
-            top: 25px;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 2000;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            color: #fbbf24;
-            padding: 12px 24px;
-            border-radius: 16px;
-            font-family: 'Courier New', monospace;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            min-width: 350px;
-            border: 2px solid #475569;
+            z-index: 1000;
+            background: #000;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            min-width: 300px;
+            width: auto;
+            max-width: 90vw;
+            border: 1px solid #333;
         }
 
         #cmd-input {
@@ -194,292 +151,282 @@
             border: none;
             color: #fff;
             outline: none;
-            font-family: inherit;
+            font-family: monospace;
             width: 100%;
             font-size: 16px;
-            font-weight: bold;
         }
 
-        /* Phản hồi vuốt (Swipe Feedback) */
+        @keyframes bounce-subtle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-bounce-subtle { animation: bounce-subtle 3s ease-in-out infinite; }
+        
+        /* Style cho phản hồi khi vuốt */
         .swipe-feedback {
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(239, 68, 68, 0.9);
+            background: rgba(0,0,0,0.7);
             color: white;
-            padding: 15px 30px;
-            border-radius: 40px;
+            padding: 10px 20px;
+            border-radius: 20px;
             pointer-events: none;
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 500;
-            font-weight: 900;
-            letter-spacing: 2px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            transition: opacity 0.3s;
+            z-index: 200;
+            font-weight: bold;
         }
 
-        /* Hiệu ứng nổi bồng bềnh */
-        @keyframes float-subtle {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
+        /* MASONRY GALLERY STYLES */
+        .gallery-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
         }
-        .animate-float-summer { animation: float-subtle 4s ease-in-out infinite; }
+        @media (min-width: 640px) { .gallery-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .gallery-grid { column-count: 3; } }
 
-        /* Nút cuộn lên đầu trang */
-        #scroll-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: white;
-            color: #ef4444;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            cursor: pointer;
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-        }
-        #scroll-to-top.visible {
-            opacity: 1;
-            visibility: visible;
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
         }
     </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-[#fff7ed] via-[#f97316] to-[#991b1b] relative selection:bg-orange-300 text-slate-900">
+<body class="min-h-screen bg-gradient-to-b from-[#e0f2fe] via-[#38bdf8] to-[#0c4a6e] relative selection:bg-blue-200 text-slate-800">
 
-    <!-- BỘ LỌC SVG CHO HIỆU ỨNG SÓNG NHIỆT (WAVY EFFECT) -->
-    <svg width="0" height="0" class="absolute">
-        <filter id="wavy">
-            <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="2" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" />
-        </filter>
-    </svg>
-
-    <!-- LỚP ĐIỀU KHIỂN HỆ THỐNG (COMMAND LINE) -->
+    <!-- Lớp Command Line bí mật (nhấn / để mở) -->
     <div id="cmd-line">
-        <div class="flex items-center gap-3">
-            <span class="text-yellow-400 font-black">SYSTEM ></span>
-            <input type="text" id="cmd-input" placeholder="Nhập lệnh vận hành..." autocomplete="off">
+        <div class="flex items-center gap-2">
+            <span class="text-white font-bold">/</span>
+            <input type="text" id="cmd-input" placeholder="Nhập lệnh..." autocomplete="off">
         </div>
     </div>
 
-    <!-- THÔNG BÁO TRẠNG THÁI VUỐT -->
-    <div id="swipe-msg" class="swipe-feedback">TRẠNG THÁI MỚI</div>
+    <!-- Phản hồi thông báo vuốt -->
+    <div id="swipe-msg" class="swipe-feedback"></div>
 
-    <!-- HỆ THỐNG HIỆU ỨNG HẠT (CÁNH HOA, NẮNG & MÂY) -->
-    <div id="petals-container" class="fixed inset-0 pointer-events-none overflow-hidden z-[5]"></div>
-    <div id="sunlight-container" class="fixed inset-0 pointer-events-none overflow-hidden z-[1]"></div>
-    <div id="clouds-container" class="fixed inset-0 pointer-events-none overflow-hidden z-[2]"></div>
-    <div id="balloon-container" class="fixed inset-0 pointer-events-none overflow-hidden z-[70]"></div>
+    <!-- Hệ thống bóng bay khi có sinh nhật -->
+    <div id="balloon-container" class="fixed inset-0 pointer-events-none overflow-hidden z-[60]"></div>
 
-    <!-- BIỂU TƯỢNG MẶT TRỜI MÙA HÈ -->
-    <div class="absolute top-12 right-12 z-0 scale-90 md:scale-110">
+    <!-- Bầu trời sao trang trí -->
+    <div id="stars-container" class="fixed inset-0 pointer-events-none"></div>
+
+    <!-- Biểu tượng Mặt trời tỏa sáng -->
+    <div class="absolute top-10 right-10 z-0 scale-75 md:scale-100">
         <div class="relative flex items-center justify-center">
-            <div class="absolute w-72 h-72 bg-yellow-400 rounded-full blur-[80px] opacity-50 animate-pulse"></div>
-            <div class="w-36 h-36 bg-gradient-to-tr from-yellow-300 via-orange-400 to-red-500 rounded-full shadow-[0_0_120px_rgba(245,158,11,0.9)] relative z-10 flex items-center justify-center border-4 border-yellow-200/50">
-                <i data-lucide="sun" class="w-16 h-16 text-white drop-shadow-2xl"></i>
+            <div class="absolute w-56 h-56 bg-yellow-300 rounded-full blur-[60px] opacity-40 animate-pulse"></div>
+            <div class="w-32 h-32 bg-gradient-to-tr from-yellow-200 via-yellow-400 to-orange-500 rounded-full shadow-[0_0_100px_rgba(251,191,36,0.8)] relative z-10 flex items-center justify-center">
+                <i data-lucide="sun" class="w-16 h-16 text-white/90 drop-shadow-xl"></i>
             </div>
-            <div class="absolute inset-0 animate-spin-slow" id="summer-rays">
-                <!-- Tia nắng được tạo bằng mã script phía dưới -->
-            </div>
+            <div class="absolute inset-0 animate-spin-slow" id="sun-rays"></div>
         </div>
     </div>
 
-    <div class="relative z-10 container mx-auto px-6 py-20">
-        <!-- TIÊU ĐỀ CHÍNH CỦA TRANG WEB -->
-        <header class="text-center mb-24">
-            <div class="inline-flex flex-col items-center gap-3 mb-6 px-10 py-4 bg-white/30 backdrop-blur-xl rounded-full text-sm font-black text-white border border-white/40 shadow-2xl animate-float-summer">
-                <div class="flex items-center gap-3">
-                    <i data-lucide="flame" class="w-5 h-5 text-yellow-300"></i> KỶ NIỆM MÙA HÈ 2025 - 2026
+    <!-- Các đám mây trôi tự động -->
+    <div id="clouds-container" class="fixed inset-0 pointer-events-none z-20 overflow-hidden"></div>
+
+    <div class="relative z-10 container mx-auto px-6 py-16">
+        <!-- TIÊU ĐỀ TRANG WEB -->
+        <header class="text-center mb-20 text-blue-900">
+            <div class="inline-flex flex-col items-center gap-2 mb-4 px-8 py-3 bg-white/40 backdrop-blur-md rounded-3xl text-sm font-black text-blue-800 border border-white/40 shadow-lg">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-yellow-500"></i> NIÊN KHÓA 2025 - 2026
                 </div>
-                <div class="text-[11px] tracking-[0.3em] opacity-90 uppercase font-bold">Trường THCS Long Trường - Lớp 6A2</div>
+                <div class="text-[10px] tracking-[0.2em] opacity-70 uppercase">Trường THCS Long Trường</div>
             </div>
-            
-            <h1 class="text-7xl md:text-[10rem] font-black mb-10 drop-shadow-[0_15px_15px_rgba(0,0,0,0.3)] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-yellow-100 to-orange-400 leading-none">
+            <h1 class="text-7xl md:text-9xl font-black mb-8 drop-shadow-[0_8px_8px_rgba(0,0,0,0.15)] tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-blue-900 via-blue-800 to-blue-700">
                 LỚP 6A2
             </h1>
-            
-            <div class="inline-block bg-gradient-to-r from-red-600/40 to-orange-500/40 backdrop-blur-2xl px-14 py-6 rounded-[3rem] border-2 border-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.2)] transform -rotate-1 hover:rotate-0 transition-all duration-500">
-                <p class="text-2xl md:text-4xl italic font-black text-white drop-shadow-lg">"Hạ rực rỡ, nắng vàng sân trường"</p>
+            <div class="inline-block bg-white/40 backdrop-blur-xl px-12 py-5 rounded-[2.5rem] border border-white/60 shadow-2xl transform -rotate-1 hover:rotate-0 transition-all">
+                <p class="text-2xl md:text-3xl italic font-black text-blue-900/90 drop-shadow-sm">"Ngôi nhà chung rực rỡ sắc màu"</p>
             </div>
         </header>
 
-        <!-- PHẦN GIỚI THIỆU GIÁO VIÊN CHỦ NHIỆM -->
-        <section id="teacher-section" class="max-w-5xl mx-auto mb-40 relative group cursor-pointer">
-            <div class="absolute -inset-6 bg-red-500/30 blur-3xl rounded-[5rem] -z-10 group-hover:bg-orange-500/40 transition-all duration-700"></div>
-            <div id="teacher-card-container" class="bg-white/95 backdrop-blur-3xl rounded-[4.5rem] p-12 md:p-16 shadow-[0_30px_100px_rgba(0,0,0,0.2)] border-4 transition-all duration-700 flex flex-col md:flex-row items-center gap-16 transform hover:-translate-y-3">
-                <!-- Dữ liệu GV sẽ tải từ Supabase thông qua fetchStudents() -->
+        <!-- PHẦN THÔNG TIN GIÁO VIÊN CHỦ NHIỆM -->
+        <section id="teacher-section" class="max-w-4xl mx-auto mb-20 relative group cursor-pointer">
+            <div class="absolute -inset-4 bg-white/20 blur-2xl rounded-[4rem] -z-10 group-hover:bg-blue-300/30 transition-all duration-700"></div>
+            <div id="teacher-card-container" class="bg-white/85 backdrop-blur-3xl rounded-[4rem] p-12 shadow-2xl border-4 transition-all duration-700 flex flex-col md:flex-row items-center gap-12 transform hover:-translate-y-2">
+                <!-- Chờ dữ liệu từ Supabase -->
                 <div class="animate-pulse flex flex-col md:flex-row items-center gap-12 w-full">
-                    <div class="w-64 h-64 bg-orange-100 rounded-[3.5rem]"></div>
-                    <div class="flex-1 space-y-6">
-                        <div class="h-5 bg-orange-100 rounded w-1/4"></div>
-                        <div class="h-16 bg-orange-100 rounded w-3/4"></div>
-                        <div class="h-24 bg-orange-100 rounded w-full"></div>
+                    <div class="w-56 h-56 bg-slate-200 rounded-[3rem]"></div>
+                    <div class="flex-1 space-y-4">
+                        <div class="h-4 bg-slate-200 rounded w-1/4"></div>
+                        <div class="h-12 bg-slate-200 rounded w-3/4"></div>
+                        <div class="h-20 bg-slate-200 rounded w-full"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- KHU VỰC SƠ ĐỒ LỚP HỌC (GRID) -->
-        <div class="text-center mb-20">
-            <h2 class="text-5xl md:text-7xl font-black text-white mb-12 uppercase tracking-widest drop-shadow-[0_6px_6px_rgba(0,0,0,0.3)] flex items-center justify-center gap-8">
-                <div class="h-2 w-20 bg-yellow-400 rounded-full hidden md:block"></div>
-                GIA ĐÌNH 6A2
-                <div class="h-2 w-20 bg-yellow-400 rounded-full hidden md:block"></div>
-            </h2>
-
-            <!-- BẢNG TIN SINH NHẬT TỰ ĐỘNG -->
-            <div id="birthday-announcement" class="hidden max-w-6xl mx-auto mb-20 animate-bounce-subtle">
-                <div class="bg-gradient-to-r from-yellow-400 via-red-500 to-orange-500 p-1.5 rounded-[4rem] shadow-[0_25px_60px_rgba(239,68,68,0.4)]">
-                    <div class="bg-white/95 backdrop-blur-2xl rounded-[3.8rem] p-10 md:p-14 relative overflow-hidden">
-                        <!-- Decor hạt lấp lánh sinh nhật -->
-                        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                            <div class="absolute top-10 left-20 rotate-12"><i data-lucide="cake" class="w-16 h-16 text-red-600"></i></div>
-                            <div class="absolute bottom-10 right-20 -rotate-12"><i data-lucide="gift" class="w-16 h-16 text-orange-600"></i></div>
-                        </div>
-                        
-                        <div class="flex flex-col md:flex-row items-center gap-12">
-                            <div class="text-center md:text-left flex-1">
-                                <h3 class="text-red-600 font-black text-xl uppercase tracking-[0.4em] mb-4 flex items-center justify-center md:justify-start gap-3">
-                                    <i data-lucide="party-popper"></i> TIN VUI SINH NHẬT <i data-lucide="party-popper"></i>
-                                </h3>
-                                <p class="text-4xl md:text-6xl font-black text-slate-800 leading-tight">Hôm nay, nụ cười của bạn là đẹp nhất!</p>
-                                <p class="text-orange-600 font-bold mt-6 italic text-xl">6A2 gửi ngàn lời chúc mừng rực rỡ đến thành viên đặc biệt của chúng mình... 🎉</p>
-                            </div>
-                            <div id="birthday-slots-container" class="flex flex-wrap justify-center gap-8">
-                                <!-- Thẻ sinh nhật sẽ được JS render tại đây -->
-                            </div>
-                        </div>
-                    </div>
+        <!-- KHU VỰC KHOẢNH KHẮC LỚP MÌNH (TÍNH NĂNG MỚI) -->
+        <section id="gallery-section" class="mb-32">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
+                <div class="text-center md:text-left">
+                    <h2 class="text-4xl md:text-5xl font-black text-white drop-shadow-lg uppercase tracking-tight">Khoảnh Khắc 6A2</h2>
+                    <p class="text-blue-100 font-bold italic mt-2">Nơi lưu giữ những kỷ niệm đẹp nhất của chúng mình...</p>
                 </div>
-            </div>
-
-            <!-- CHÚ THÍCH CÁC TRẠNG THÁI Ô TRÊN SƠ ĐỒ -->
-            <div class="flex flex-wrap justify-center gap-8 text-[11px] font-black uppercase tracking-[0.25em]">
-                <span class="flex items-center gap-4 bg-white/20 backdrop-blur-lg px-8 py-4 rounded-2xl border border-white/30 text-white shadow-xl">
-                    <div class="w-5 h-5 bg-white/40 rounded-full border-2 border-white/50"></div> TRỐNG
-                </span>
-                <span class="flex items-center gap-4 bg-white/20 backdrop-blur-lg px-8 py-4 rounded-2xl border border-white/30 text-white shadow-xl">
-                    <div class="w-5 h-5 bg-orange-500 rounded-full shadow-[0_0_15px_rgba(249,115,22,1)]"></div> ĐÃ CHỌN
-                </span>
-                <span class="flex items-center gap-4 bg-white/20 backdrop-blur-lg px-8 py-4 rounded-2xl border border-white/30 text-white shadow-xl">
-                    <div class="w-5 h-5 bg-yellow-400 rounded-full shadow-[0_0_15px_rgba(250,204,21,1)]"></div> LỚP TRƯỞNG
-                </span>
-            </div>
-        </div>
-
-        <!-- LƯỚI HIỂN THỊ HÀNG GHẾ HỌC SINH (GRID) -->
-        <div id="student-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-10 relative pb-40">
-            <!-- 50 ô học sinh sẽ được mã JS tự động tạo dựa trên vòng lặp -->
-        </div>
-    </div>
-
-    <!-- MODAL CHI TIẾT THÔNG TIN (HỒ SƠ CÁ NHÂN) -->
-    <div id="modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-10 bg-black/60 backdrop-blur-2xl transition-all duration-500">
-        <div class="bg-white rounded-[4.5rem] w-full max-w-3xl overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.6)] border-[15px] border-white/10 relative transform scale-100 transition-transform">
-            <!-- Phần đầu của Modal (Header) -->
-            <div id="modal-header" class="p-12 flex justify-between items-center text-white bg-gradient-to-r from-red-600 to-orange-600">
-                <div class="flex items-center gap-6">
-                    <div class="bg-white/20 p-5 rounded-[1.8rem] shadow-inner" id="modal-icon">
-                        <i data-lucide="user" class="w-8 h-8"></i>
-                    </div>
-                    <div>
-                        <h3 id="modal-title" class="text-4xl font-black tracking-tighter uppercase leading-none">Thông Tin</h3>
-                        <p id="modal-subtitle" class="text-xs text-white/80 mt-3 font-black tracking-[0.4em] uppercase">HÀNH TRÌNH 6A2</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4">
-                    <button onclick="confirmDelete()" id="delete-btn" class="hidden bg-white/10 hover:bg-red-500 p-5 rounded-full transition-all group">
-                        <i data-lucide="trash-2" class="w-7 h-7 text-white"></i>
-                    </button>
-                    <button onclick="editCurrentProfile()" id="edit-btn" class="hidden bg-white/10 hover:bg-white/30 p-5 rounded-full transition-all group">
-                        <i data-lucide="edit-3" class="w-7 h-7 group-hover:rotate-12 transition-transform"></i>
-                    </button>
-                    <button onclick="closeModal()" class="bg-white/10 hover:bg-red-600 p-5 rounded-full transition-all">
-                        <i data-lucide="x" class="w-7 h-7"></i>
-                    </button>
-                </div>
+                <button onclick="openPhotoUpload()" class="group relative px-8 py-4 bg-white text-blue-600 font-black rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 overflow-hidden">
+                    <div class="absolute inset-0 bg-blue-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                    <i data-lucide="image-plus" class="w-6 h-6 relative z-10 group-hover:text-white transition-colors"></i>
+                    <span class="relative z-10 group-hover:text-white transition-colors">ĐĂNG ẢNH MỚI</span>
+                </button>
             </div>
             
-            <!-- Nội dung bên trong Modal (Body) -->
-            <div id="modal-content" class="p-12 space-y-10 max-h-[70vh] overflow-y-auto custom-scrollbar bg-orange-50/30">
-                <!-- Nội dung sẽ được thay thế bởi JavaScript khi người dùng nhấn vào các ô -->
+            <div id="photo-gallery" class="gallery-grid">
+                <!-- Ảnh sẽ được load ở đây -->
+                <div class="col-span-full py-20 text-center text-white/50 font-black italic">
+                    Đang tải những kỷ niệm...
+                </div>
+            </div>
+        </section>
+
+        <!-- KHU VỰC SƠ ĐỒ LỚP HỌC -->
+        <div class="text-center mb-16">
+            <h2 class="text-5xl font-black text-white mb-10 uppercase tracking-widest drop-shadow-[0_4px_4px_rgba(0,0,0,0.2)] flex items-center justify-center gap-6">
+                <div class="h-1.5 w-16 bg-white/50 rounded-full hidden md:block"></div>
+                Sơ Đồ Lớp Mình
+                <div class="h-1.5 w-16 bg-white/50 rounded-full hidden md:block"></div>
+            </h2>
+
+            <!-- BẢNG THÔNG BÁO SINH NHẬT TỰ ĐỘNG -->
+            <div id="birthday-announcement" class="hidden max-w-5xl mx-auto mb-16 animate-bounce-subtle">
+                <div class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 p-1 rounded-[3.5rem] shadow-[0_20px_50px_rgba(236,72,153,0.3)]">
+                    <div class="bg-white/90 backdrop-blur-xl rounded-[3.2rem] p-8 md:p-12 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+                            <div class="absolute top-5 left-10 rotate-12"><i data-lucide="cake" class="w-12 h-12 text-pink-600"></i></div>
+                            <div class="absolute bottom-5 right-10 -rotate-12"><i data-lucide="party-popper" class="w-12 h-12 text-indigo-600"></i></div>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center gap-10">
+                            <div class="text-center md:text-left flex-1">
+                                <h3 class="text-pink-600 font-black text-lg uppercase tracking-[0.3em] mb-2 flex items-center justify-center md:justify-start gap-2">
+                                    <i data-lucide="sparkles"></i> CHÚC MỪNG SINH NHẬT <i data-lucide="sparkles"></i>
+                                </h3>
+                                <p class="text-4xl md:text-5xl font-black text-slate-800 leading-tight">Hôm nay là ngày đặc biệt của thành viên 6A2!</p>
+                                <p class="text-slate-500 font-bold mt-4 italic text-lg">Cả lớp chúc bạn một tuổi mới thật rực rỡ, học giỏi và luôn hạnh phúc nhé! 🎉</p>
+                            </div>
+                            <div id="birthday-slots-container" class="flex flex-wrap justify-center gap-6">
+                                <!-- Thẻ sinh nhật sẽ được JS render vào đây -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHÚ THÍCH CÁC LOẠI Ô TRÊN SƠ ĐỒ -->
+            <div class="flex flex-wrap justify-center gap-6 text-xs font-black uppercase tracking-widest">
+                <span class="flex items-center gap-3 bg-white/30 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/30 text-white shadow-lg">
+                    <div class="w-4 h-4 bg-white/50 rounded-full"></div> Slot trống
+                </span>
+                <span class="flex items-center gap-3 bg-white/30 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/30 text-white shadow-lg">
+                    <div class="w-4 h-4 bg-sky-400 rounded-full shadow-[0_0_12px_rgba(56,189,248,1)]"></div> Đã chọn
+                </span>
+                <span class="flex items-center gap-3 bg-white/30 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/30 text-white shadow-lg">
+                    <div class="w-4 h-4 bg-yellow-400 rounded-full shadow-[0_0_12px_rgba(250,204,21,1)]"></div> Lớp trưởng
+                </span>
+            </div>
+        </div>
+
+        <!-- LƯỚI DANH SÁCH HỌC SINH -->
+        <div id="student-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 relative pb-32">
+        </div>
+    </div>
+
+    <!-- MODAL HIỂN THỊ THÔNG TIN CHI TIẾT -->
+    <div id="modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 md:p-8 bg-sky-950/80 backdrop-blur-xl transition-all">
+        <div class="bg-white rounded-[4rem] w-full max-w-2xl overflow-hidden shadow-[0_32px_64px_rgba(0,0,0,0.5)] border-[12px] border-white/20 relative">
+            <div id="modal-header" class="p-10 flex justify-between items-center text-white bg-gradient-to-r from-sky-600 to-blue-700">
+                <div class="flex items-center gap-5">
+                    <div class="bg-white/20 p-4 rounded-[1.5rem] shadow-inner" id="modal-icon">
+                        <i data-lucide="user" class="w-7 h-7"></i>
+                    </div>
+                    <div>
+                        <h3 id="modal-title" class="text-3xl font-black tracking-tight uppercase leading-none">Thông Tin</h3>
+                        <p id="modal-subtitle" class="text-sm text-white/70 mt-2 font-black tracking-[0.3em] uppercase"></p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="confirmDelete()" id="delete-btn" class="hidden bg-red-500/20 hover:bg-red-500 p-4 rounded-full transition-all group">
+                        <i data-lucide="trash-2" class="w-6 h-6 text-white transition-transform"></i>
+                    </button>
+                    <button onclick="editCurrentProfile()" id="edit-btn" class="hidden bg-white/20 hover:bg-white/40 p-4 rounded-full transition-all group">
+                        <i data-lucide="edit-3" class="w-6 h-6 group-hover:rotate-12 transition-transform"></i>
+                    </button>
+                    <button onclick="closeModal()" class="bg-white/20 hover:bg-red-500 p-4 rounded-full transition-all">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="modal-content" class="p-10 space-y-8 max-h-[70vh] overflow-y-auto custom-scrollbar bg-slate-50/50">
+                <!-- Nội dung được thay đổi bằng JS -->
             </div>
         </div>
     </div>
 
-    <!-- NÚT CUỘN LÊN ĐẦU TRANG -->
-    <div id="scroll-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        <i data-lucide="chevron-up" class="w-8 h-8"></i>
-    </div>
-
-    <!-- FOOTER TRANG WEB (PHẦN CHÂN TRANG) -->
-    <footer class="relative z-30 text-center py-24">
-        <div class="max-w-lg mx-auto px-6">
-            <div class="bg-white/10 backdrop-blur-2xl px-12 py-8 rounded-[3.5rem] border border-white/30 text-white font-black tracking-[0.4em] uppercase text-xs shadow-2xl flex flex-col items-center justify-center gap-4">
-                <div class="flex items-center gap-6">
-                    <div class="w-3 h-3 bg-red-400 rounded-full animate-ping"></div>
-                    6A2 - MỘT GIA ĐÌNH, MỘT TRÁI TIM
-                    <div class="w-3 h-3 bg-red-400 rounded-full animate-ping"></div>
+    <!-- FOOTER TRANG WEB -->
+    <footer class="relative z-30 text-center py-20">
+        <div class="max-w-md mx-auto px-6">
+            <div class="bg-white/20 backdrop-blur-2xl px-10 py-6 rounded-[3rem] border border-white/40 text-white font-black tracking-[0.3em] uppercase text-sm shadow-2xl flex flex-col items-center justify-center gap-2">
+                <div class="flex items-center gap-4">
+                    <div class="w-3 h-3 bg-white rounded-full animate-ping"></div>
+                    6A2 - MÃI MÃI MỘT GIA ĐÌNH
+                    <div class="w-3 h-3 bg-white rounded-full animate-ping"></div>
                 </div>
             </div>
-            <div class="mt-10">
-                <p class="text-white font-black text-lg uppercase tracking-[0.4em] drop-shadow-xl">Hẹn gặp lại vào Mùa Khai Giảng</p>
-                <p class="text-white/60 font-black text-[11px] uppercase tracking-widest italic mt-2">Design for Class 6A2 - Long Truong Secondary School</p>
+            <div class="mt-8">
+                <p class="text-white font-black text-base uppercase tracking-[0.3em] drop-shadow-md">Trường THCS Long Trường</p>
+                <p class="text-white/60 font-black text-[10px] uppercase tracking-widest italic">Niên khóa 2025 - 2026</p>
             </div>
         </div>
     </footer>
 
     <script>
         /**
-         * ============================================================
-         * HỆ THỐNG JAVASCRIPT ĐIỀU HÀNH - PHIÊN BẢN MÙA HÈ 2025
-         * Tích hợp: Supabase, CRUD, Auth, Admin Commands, Animations.
-         * Version: 2.0.0
-         * ============================================================
+         * HỆ THỐNG JAVASCRIPT LỚP 6A2 - PHIÊN BẢN KỶ NIỆM (ẢNH & GRADIENT MỚI)
          */
 
-        // --- CẤU HÌNH KẾT NỐI DATABASE SUPABASE ---
-        // Thông tin dự án và chìa khóa bảo mật để trao đổi dữ liệu
+        // --- KẾT NỐI SERVER ---
         const _supabaseUrl = 'https://cwesurvjawhkqeirgdgf.supabase.co'; 
         const _supabaseKey = 'sb_publishable_igNeOf3XW_vHXF9G4IYcqQ_vlKgzq0d'; 
         const supabaseClient = supabase.createClient(_supabaseUrl, _supabaseKey);
 
-        // --- KHỞI TẠO BIẾN TRẠNG THÁI TOÀN CỤC ---
-        let students = {};                 // Chứa toàn bộ dữ liệu học sinh tải về
-        let birthdayList = new Set();      // Chứa danh sách ID học sinh có sinh nhật hôm nay
-        let mySlotIndex = localStorage.getItem('6A2_my_slot'); // Lưu vết ô mà người dùng này đã chọn
-        let selectedSlot = null;           // Lưu ID ô hiện đang được tương tác (modal đang mở)
-        let viewMode = 'view';             // Trạng thái hiển thị: 'view', 'edit', hoặc 'auth'
-        let currentTheme = 'bg-white';     // Màu chủ đạo đang chọn khi sửa hồ sơ
-        let currentImageBase64 = null;     // Dữ liệu ảnh đại diện dưới dạng chuỗi mã hóa
+        // --- TRẠNG THÁI ỨNG DỤNG ---
+        let students = {}; 
+        let classPhotos = [];
+        let birthdayList = new Set(); 
+        let mySlotIndex = localStorage.getItem('6A2_my_slot'); 
+        let selectedSlot = null;
+        let viewMode = 'view';
+        let currentTheme = 'bg-white'; 
+        let currentImageBase64 = null;
+        let uploadPhotoBase64 = null;
         
-        // Các biến phục vụ cử chỉ vuốt (Touch Gestures)
+        // Biến xử lý vuốt (Swipe)
         let touchStartX = 0;
         let touchEndX = 0;
 
-        // Bảng danh mục màu sắc Mùa hè đa dạng để học sinh lựa chọn
+        // BẢNG MÀU GRADIENT MỚI (KẾT HỢP 2 MÀU)
         const colorThemes = [
-            { name: 'Đỏ Phượng Vĩ', class: 'bg-gradient-to-br from-red-50 to-red-100 text-red-900 border-red-200' },
-            { name: 'Vàng Nắng Hạ', class: 'bg-gradient-to-br from-yellow-50 to-amber-100 text-amber-900 border-yellow-200' },
-            { name: 'Cam Hoàng Hôn', class: 'bg-gradient-to-br from-orange-50 to-orange-100 text-orange-900 border-orange-200' },
-            { name: 'Xanh Lá Mạ', class: 'bg-gradient-to-br from-emerald-50 to-green-100 text-green-900 border-green-200' },
-            { name: 'Trắng Tinh Khôi', class: 'bg-white text-slate-800 border-slate-100' },
-            { name: 'Tím Bằng Lăng', class: 'bg-gradient-to-br from-purple-50 to-violet-100 text-purple-900 border-purple-200' },
-            { name: 'Xanh Đại Dương', class: 'bg-gradient-to-br from-sky-50 to-blue-100 text-blue-900 border-blue-200' },
-            { name: 'Nâu Trầm Mặc', class: 'bg-gradient-to-br from-stone-50 to-stone-200 text-stone-900 border-stone-300' }
+            { name: 'Trắng tinh khôi', class: 'bg-white text-blue-900' },
+            { name: 'Xanh bình yên', class: 'bg-gradient-to-br from-blue-50 to-sky-100 text-blue-900' },
+            { name: 'Hồng mộng mơ', class: 'bg-gradient-to-br from-rose-50 to-pink-100 text-rose-900' },
+            { name: 'Vàng nắng hạ', class: 'bg-gradient-to-br from-amber-50 to-yellow-100 text-amber-900' },
+            { name: 'Tím huyền bí', class: 'bg-gradient-to-br from-purple-50 to-indigo-100 text-purple-900' },
+            { name: 'Hoàng hôn rực rỡ', class: 'bg-gradient-to-br from-orange-400 to-pink-500 text-white' },
+            { name: 'Đại dương xanh', class: 'bg-gradient-to-br from-cyan-400 to-blue-600 text-white' },
+            { name: 'Rừng nhiệt đới', class: 'bg-gradient-to-br from-emerald-400 to-teal-600 text-white' },
+            { name: 'Vũ trụ huyền diệu', class: 'bg-gradient-to-br from-indigo-600 to-purple-700 text-white' },
+            { name: 'Kẹo ngọt', class: 'bg-gradient-to-br from-fuchsia-400 to-purple-500 text-white' },
+            { name: 'Lửa hồng', class: 'bg-gradient-to-br from-red-500 to-orange-400 text-white' },
+            { name: 'Chanh sả', class: 'bg-gradient-to-br from-lime-400 to-green-600 text-white' },
+            { name: 'Bạc hà mát lạnh', class: 'bg-gradient-to-br from-teal-200 to-cyan-400 text-blue-900' },
+            { name: 'Sắc màu tương lai', class: 'bg-gradient-to-br from-violet-400 to-indigo-500 text-white' },
+            { name: 'Cát vàng', class: 'bg-gradient-to-br from-yellow-200 to-amber-500 text-amber-950' },
+            { name: 'Xám sang trọng', class: 'bg-gradient-to-br from-slate-100 to-slate-400 text-slate-900' }
         ];
 
         /**
-         * Hàm tải dữ liệu từ máy chủ Supabase.
-         * Chức năng: Truy vấn toàn bộ bảng 'students', chuyển đổi thành object để dễ quản lý.
+         * Tải dữ liệu từ server
          */
         async function fetchStudents() {
             try {
@@ -488,28 +435,159 @@
                 
                 students = {};
                 data.forEach(s => { students[s.id] = s; });
-                
-                console.log("Hệ thống: Đã cập nhật dữ liệu từ máy chủ (Sync thành công)");
-                
-                // Sau khi có dữ liệu, tiến hành cập nhật giao diện
                 checkAutoBirthdays();
                 renderTeacherSlot(); 
                 renderGrid(); 
+                fetchPhotos(); // Tải ảnh lớp
             } catch (err) {
-                console.error('Lỗi nghiêm trọng hệ thống dữ liệu:', err.message);
+                console.error('Lỗi tải dữ liệu:', err.message);
             }
         }
 
         /**
-         * Hàm kiểm tra sinh nhật hôm nay một cách tự động.
-         * Chức năng: Duyệt qua tất cả học sinh và so sánh ngày sinh với thời gian hiện tại.
+         * Tải ảnh từ thư viện kỷ niệm
+         */
+        async function fetchPhotos() {
+            try {
+                // Giả định bạn có bảng 'class_photos' trong Supabase
+                const { data, error } = await supabaseClient.from('class_photos').select('*').order('created_at', { ascending: false });
+                if (error) {
+                    console.log("Gợi ý: Hãy tạo bảng 'class_photos' với id, photo_data, caption, created_at");
+                    return;
+                }
+                classPhotos = data;
+                renderGallery();
+            } catch (err) { console.error(err); }
+        }
+
+        /**
+         * Hiển thị thư viện ảnh
+         */
+        function renderGallery() {
+            const gallery = document.getElementById('photo-gallery');
+            if (classPhotos.length === 0) {
+                gallery.innerHTML = `
+                    <div class="col-span-full py-16 bg-white/10 rounded-[3rem] border-4 border-dashed border-white/20 text-center text-white/60">
+                        <i data-lucide="camera-off" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
+                        <p class="font-black uppercase tracking-widest">Chưa có tấm ảnh nào được chia sẻ.</p>
+                        <p class="text-sm mt-2 font-bold italic">Hãy là người đầu tiên đăng khoảnh khắc đẹp!</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            gallery.innerHTML = classPhotos.map((photo, index) => `
+                <div class="gallery-item photo-card-animate" style="animation-delay: ${index * 0.1}s">
+                    <div class="bg-white p-4 rounded-[2rem] shadow-2xl hover:scale-[1.02] transition-transform group relative overflow-hidden">
+                        <img src="${photo.photo_data}" class="w-full h-auto rounded-[1.5rem] object-cover" alt="Kỷ niệm 6A2">
+                        ${photo.caption ? `
+                        <div class="mt-4 px-2">
+                            <p class="text-slate-700 font-bold italic text-sm">"${photo.caption}"</p>
+                            <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
+                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-tighter">${new Date(photo.created_at).toLocaleDateString('vi-VN')}</span>
+                                <button onclick="deletePhoto(${photo.id})" class="opacity-0 group-hover:opacity-100 text-rose-400 hover:text-rose-600 transition-all">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        /**
+         * Mở giao diện tải ảnh
+         */
+        function openPhotoUpload() {
+            viewMode = 'upload_photo';
+            const modal = document.getElementById('modal');
+            const header = document.getElementById('modal-header');
+            header.className = 'p-10 flex justify-between items-center text-white bg-gradient-to-r from-blue-500 to-indigo-600';
+            document.getElementById('modal-title').innerText = 'Đăng Ảnh Kỷ Niệm';
+            document.getElementById('modal-subtitle').innerText = 'CHIA SẺ KHOẢNH KHẮC 6A2';
+            document.getElementById('modal-icon').innerHTML = '<i data-lucide="image" class="w-7 h-7"></i>';
+            document.getElementById('edit-btn').classList.add('hidden');
+            document.getElementById('delete-btn').classList.add('hidden');
+
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `
+                <div class="space-y-8 py-4">
+                    <div onclick="document.getElementById('photoInput').click()" class="relative cursor-pointer group">
+                        <div id="photo-preview" class="w-full aspect-video rounded-[2.5rem] bg-slate-100 border-8 border-dashed border-slate-200 group-hover:border-blue-400 flex flex-col items-center justify-center overflow-hidden transition-all duration-500 shadow-inner">
+                            <i data-lucide="camera" class="text-slate-300 w-16 h-16 mb-4 group-hover:scale-110 transition-transform"></i>
+                            <p class="font-black text-slate-400 uppercase tracking-widest text-sm">Nhấn để chọn ảnh</p>
+                        </div>
+                        <input type="file" id="photoInput" class="hidden" accept="image/*" onchange="handleGalleryImage(this)">
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] px-3">Mô tả bức ảnh</label>
+                        <input id="photo-caption" placeholder="Bức ảnh này chụp lúc nào vậy nhỉ?..." class="w-full px-8 py-5 bg-white border-4 border-slate-100 focus:border-blue-400 rounded-[2rem] outline-none font-black text-blue-900 shadow-xl transition-all">
+                    </div>
+                    <div class="pt-4">
+                        <button onclick="submitPhoto()" id="photo-submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-black py-7 rounded-[2.5rem] shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 active:translate-y-1 transition-all uppercase tracking-[0.3em] text-xl">
+                            ĐĂNG LÊN THƯ VIỆN
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function handleGalleryImage(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    uploadPhotoBase64 = e.target.result;
+                    document.getElementById('photo-preview').innerHTML = `<img src="${uploadPhotoBase64}" class="w-full h-full object-cover rounded-[2rem]">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function submitPhoto() {
+            if (!uploadPhotoBase64) { alert("Vui lòng chọn ảnh trước!"); return; }
+            const caption = document.getElementById('photo-caption').value;
+            const btn = document.getElementById('photo-submit-btn');
+            
+            btn.disabled = true;
+            btn.innerText = "ĐANG TẢI LÊN...";
+
+            try {
+                const { error } = await supabaseClient.from('class_photos').insert([
+                    { photo_data: uploadPhotoBase64, caption: caption }
+                ]);
+                if (error) throw error;
+                await fetchPhotos();
+                closeModal();
+                uploadPhotoBase64 = null;
+            } catch (err) {
+                alert("Không thể đăng ảnh. Lỗi: " + err.message);
+                btn.disabled = false;
+                btn.innerText = "ĐĂNG LÊN THƯ VIỆN";
+            }
+        }
+
+        async function deletePhoto(id) {
+            if (!confirm("Bạn muốn xóa bức ảnh kỷ niệm này?")) return;
+            try {
+                await supabaseClient.from('class_photos').delete().eq('id', id);
+                fetchPhotos();
+            } catch (e) { alert("Lỗi khi xóa ảnh."); }
+        }
+
+        /**
+         * Kiểm tra sinh nhật
          */
         function checkAutoBirthdays() {
             const today = new Date();
             const day = today.getDate();
             const month = today.getMonth() + 1;
-            
-            birthdayList.clear(); // Làm mới danh sách sinh nhật
 
             Object.values(students).forEach(s => {
                 if (s.birthday) {
@@ -523,12 +601,12 @@
         }
 
         /**
-         * Hàm cập nhật giao diện bảng tin sinh nhật.
-         * Chức năng: Hiển thị bảng chúc mừng nếu có ít nhất 1 thành viên có sinh nhật.
+         * Cập nhật UI sinh nhật
          */
         function updateBirthdayUI() {
             const panel = document.getElementById('birthday-announcement');
             const container = document.getElementById('birthday-slots-container');
+            const balloonContainer = document.getElementById('balloon-container');
             
             container.innerHTML = '';
             
@@ -541,157 +619,139 @@
                         container.appendChild(card);
                     }
                 });
-                startBalloons(); // Kích hoạt hiệu ứng bóng bay
+                startBalloons();
             } else {
                 panel.classList.add('hidden');
+                balloonContainer.innerHTML = '';
             }
         }
 
         /**
-         * Hệ thống tạo hiệu ứng bóng bay mùa hè.
-         * Chức năng: Tạo ra 40 đối tượng bóng bay lơ lửng từ dưới lên trên.
+         * Tạo hiệu ứng bóng bay
          */
         function startBalloons() {
             const container = document.getElementById('balloon-container');
-            if (container.children.length > 0) return; // Tránh tạo trùng lặp
+            if (container.children.length > 0) return;
 
-            const summerColors = ['#ef4444', '#f97316', '#facc15', '#fbbf24', '#f87171', '#fb923c'];
-            for (let i = 0; i < 40; i++) {
+            const colors = ['#f472b6', '#60a5fa', '#34d399', '#fbbf24', '#a78bfa', '#f87171'];
+            for (let i = 0; i < 35; i++) {
                 const b = document.createElement('div');
                 b.className = 'balloon';
                 b.style.left = Math.random() * 100 + 'vw';
-                b.style.backgroundColor = summerColors[Math.floor(Math.random() * summerColors.length)];
-                b.style.animationDuration = (7 + Math.random() * 10) + 's';
-                b.style.animationDelay = (Math.random() * 8) + 's';
-                b.style.opacity = 0.8;
-                b.style.filter = 'blur(0.5px)';
+                b.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                b.style.animationDuration = (6 + Math.random() * 8) + 's';
+                b.style.animationDelay = (Math.random() * 5) + 's';
+                b.style.opacity = 0.7;
                 container.appendChild(b);
             }
         }
 
         /**
-         * Khởi tạo các hiệu ứng trang trí Mùa Hè Rực Rỡ.
-         * Chức năng: Tạo tia nắng, cánh hoa, mây và tia mặt trời.
+         * Trang trí giao diện
          */
-        function initSummerDecorations() {
-            // Hiệu ứng nắng lấp lánh (Sun Glare)
-            const sunContainer = document.getElementById('sunlight-container');
-            for (let i = 0; i < 15; i++) {
-                const glare = document.createElement('div');
-                glare.className = 'sun-ray-particle';
-                const size = Math.random() * 300 + 100;
-                glare.style.width = size + 'px';
-                glare.style.height = size + 'px';
-                glare.style.top = Math.random() * 100 + 'vh';
-                glare.style.left = Math.random() * 100 + 'vw';
-                glare.style.animationDelay = Math.random() * 5 + 's';
-                sunContainer.appendChild(glare);
+        function initDecorations() {
+            const starsContainer = document.getElementById('stars-container');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'absolute bg-white rounded-full opacity-40 animate-twinkle';
+                star.style.width = star.style.height = (Math.random() * 3 + 1) + 'px';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                star.style.animationDuration = (3 + Math.random() * 4) + 's';
+                starsContainer.appendChild(star);
             }
 
-            // Hiệu ứng cánh hoa phượng đỏ rơi lác đác
-            const petalsContainer = document.getElementById('petals-container');
-            for (let i = 0; i < 25; i++) {
-                const petal = document.createElement('div');
-                petal.className = 'petal';
-                const size = Math.random() * 15 + 10;
-                petal.style.width = size + 'px';
-                petal.style.height = (size + 5) + 'px';
-                petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.animationDuration = (Math.random() * 10 + 8) + 's';
-                petal.style.animationDelay = (Math.random() * 10) + 's';
-                petal.style.opacity = Math.random() * 0.6 + 0.4;
-                petalsContainer.appendChild(petal);
-            }
-
-            // Hiệu ứng mây mùa hè trắng trôi nhẹ nhàng
             const cloudsContainer = document.getElementById('clouds-container');
             for (let i = 0; i < 6; i++) {
-                const cloud = document.createElement('div');
-                cloud.className = 'summer-cloud';
-                const width = Math.random() * 400 + 200;
-                cloud.style.width = width + 'px';
-                cloud.style.height = (width * 0.6) + 'px';
-                cloud.style.top = (Math.random() * 40) + 'vh';
-                cloud.style.animationDuration = (Math.random() * 60 + 40) + 's';
-                cloud.style.animationDelay = (Math.random() * -100) + 's';
-                cloudsContainer.appendChild(cloud);
+                const cloudWrap = document.createElement('div');
+                cloudWrap.className = 'cloud-animate';
+                cloudWrap.style.top = (10 + i * 18) + '%';
+                cloudWrap.style.left = '-500px';
+                cloudWrap.style.animation = `floatOver ${35 + i * 15}s linear infinite`;
+                cloudWrap.style.animationDelay = `-${i * 12}s`;
+                cloudWrap.style.transform = `scale(${1 + Math.random() * 0.7})`;
+                
+                cloudWrap.innerHTML = `
+                    <div class="relative">
+                        <div class="w-64 h-16 bg-white rounded-full shadow-lg"></div>
+                        <div class="w-32 h-32 bg-white rounded-full -mt-24 ml-10"></div>
+                        <div class="w-28 h-28 bg-white rounded-full -mt-28 ml-32"></div>
+                    </div>
+                `;
+                cloudsContainer.appendChild(cloudWrap);
             }
 
-            // Tạo các tia nắng động xung quanh Mặt Trời
-            const sunRays = document.getElementById('summer-rays');
-            for (let i = 0; i < 16; i++) {
+            const sunRays = document.getElementById('sun-rays');
+            for (let i = 0; i < 12; i++) {
                 const ray = document.createElement('div');
-                ray.className = 'absolute top-1/2 left-1/2 w-2 h-64 bg-gradient-to-t from-transparent via-yellow-200/30 to-transparent -translate-x-1/2 -translate-y-1/2';
-                ray.style.transform = `translate(-50%, -50%) rotate(${i * 22.5}deg)`;
+                ray.className = 'absolute top-1/2 left-1/2 w-1.5 h-48 bg-gradient-to-t from-transparent via-yellow-200/40 to-transparent -translate-x-1/2 -translate-y-1/2';
+                ray.style.transform = `translate(-50%, -50%) rotate(${i * 30}deg)`;
                 sunRays.appendChild(ray);
             }
         }
 
         /**
-         * Hàm hiển thị thông tin Giáo viên chủ nhiệm.
-         * Chức năng: Render card lớn của GV ở phần đầu trang.
+         * Render Giáo viên chủ nhiệm
          */
         function renderTeacherSlot() {
             const container = document.getElementById('teacher-section');
             const inner = document.getElementById('teacher-card-container');
-            const teacher = students[99]; // ID 99 là quy ước cho Giáo viên
+            const teacher = students[99]; 
 
             container.onclick = () => handleOpenSlot(99);
 
             if (teacher) {
-                const themeClass = teacher.color_theme || 'bg-white/95';
-                inner.className = `${themeClass} rounded-[4.5rem] p-12 md:p-16 shadow-2xl border-4 teacher-gold-glow flex flex-col md:flex-row items-center gap-16 transform hover:-translate-y-3 transition-all duration-700`;
+                const themeClass = teacher.color_theme || 'bg-white/85 backdrop-blur-3xl';
+                inner.className = `${themeClass} rounded-[4rem] p-12 shadow-2xl border-4 teacher-glow-effect flex flex-col md:flex-row items-center gap-12 transform hover:-translate-y-2 transition-all duration-700`;
                 inner.innerHTML = `
                     <div class="relative">
-                        <div class="w-64 h-64 bg-gradient-to-tr from-red-500 via-orange-400 to-yellow-400 rounded-[3.5rem] flex items-center justify-center text-9xl shadow-2xl border-[12px] border-white overflow-hidden shrink-0 rotate-3 group-hover:rotate-0 transition-all duration-700">
+                        <div class="w-56 h-56 bg-gradient-to-tr from-blue-500 via-sky-300 to-indigo-400 rounded-[3rem] flex items-center justify-center text-8xl shadow-2xl border-[10px] border-white overflow-hidden shrink-0 rotate-3 group-hover:rotate-0 transition-all duration-700">
                             ${teacher.avatar_image ? `<img src="${teacher.avatar_image}" class="w-full h-full object-cover">` : '👩‍🏫'}
                         </div>
-                        <div class="absolute -bottom-8 -right-8 bg-yellow-400 text-white p-6 rounded-[2rem] shadow-2xl animate-bounce border-4 border-white">
-                            <i data-lucide="sun" class="w-10 h-10 fill-white text-white"></i>
+                        <div class="absolute -bottom-6 -right-6 bg-rose-500 text-white p-4 rounded-[1.5rem] shadow-xl animate-bounce border-4 border-white">
+                            <i data-lucide="heart" class="w-8 h-8 fill-white text-white"></i>
                         </div>
                     </div>
                     <div class="text-center md:text-left flex-1">
-                        <h2 class="text-red-600 font-black text-base uppercase tracking-[0.5em] mb-6">Người dẫn dắt 6A2</h2>
-                        <h3 class="text-5xl md:text-7xl font-black text-slate-900 mb-8 leading-tight drop-shadow-sm">${teacher.name}</h3>
-                        <p class="text-slate-700/80 leading-relaxed italic text-2xl font-bold bg-orange-100/50 p-8 rounded-[2.5rem] border-2 border-orange-200/50">
-                            "${teacher.hobby || 'Chào các con thân yêu, chúc lớp chúng mình có một mùa hè thật ý nghĩa và đầy ắp những kỷ niệm rực rỡ dưới mái trường Long Trường!'}"
+                        <h2 class="text-blue-500 font-black text-sm uppercase tracking-[0.4em] mb-4">Giáo viên chủ nhiệm</h2>
+                        <h3 class="text-5xl md:text-6xl font-black text-blue-950 mb-6 leading-tight drop-shadow-sm">${teacher.name}</h3>
+                        <p class="text-blue-900/80 leading-relaxed italic text-xl font-bold bg-white/40 p-6 rounded-[2rem] border border-blue-100/50">
+                            "${teacher.hobby || 'Chào các con học sinh lớp 6A2 - Long Trường. Hãy cùng cô viết nên những trang kỷ niệm đẹp nhất dưới mái trường này nhé!'}"
                         </p>
                     </div>
                 `;
             } else {
                 inner.innerHTML = `
-                    <div class="w-64 h-64 bg-orange-50 rounded-[3.5rem] flex items-center justify-center text-7xl shadow-inner border-4 border-dashed border-orange-200">👩‍🏫</div>
+                    <div class="w-56 h-56 bg-blue-100 rounded-[3rem] flex items-center justify-center text-6xl shadow-inner border-4 border-dashed border-blue-300">👩‍🏫</div>
                     <div class="text-center md:text-left flex-1">
-                        <h2 class="text-orange-500 font-black text-sm uppercase tracking-[0.4em] mb-4">Giáo viên chủ nhiệm</h2>
-                        <h3 class="text-5xl font-black text-slate-300">Chưa cập nhật hồ sơ</h3>
-                        <p class="text-slate-400 italic mt-6 text-xl">Chạm vào đây để bắt đầu thiết lập thông tin giáo viên...</p>
+                        <h2 class="text-blue-500 font-black text-sm uppercase tracking-[0.4em] mb-2">Giáo viên chủ nhiệm</h2>
+                        <h3 class="text-4xl font-black text-slate-400">Chưa thiết lập</h3>
+                        <p class="text-slate-400 italic mt-4">Click để thiết lập thông tin Giáo viên chủ nhiệm...</p>
                     </div>
                 `;
             }
-            lucide.createIcons(); // Làm mới các icon Lucide
+            lucide.createIcons();
         }
 
         /**
-         * Hàm tạo thẻ học sinh (Slot card) cho từng ô.
-         * @param {number} i - Vị trí thứ tự.
-         * @param {object} student - Dữ liệu học sinh.
-         * @param {boolean} isBirthdayCard - Có phải hiển thị trong bảng sinh nhật hay không.
+         * Tạo thẻ học sinh
          */
         function createStudentCard(i, student, isBirthdayCard = false) {
             const btn = document.createElement('button');
             btn.onclick = () => handleOpenSlot(i);
             
-            const themeClass = student?.color_theme || 'bg-white/80 text-slate-800';
+            const themeClass = student?.color_theme || 'bg-white text-blue-900';
             const isMonitor = student?.role === 'monitor';
             const isEarly = student?.is_early === true; 
             const nameColor = student?.name_color || '';
 
             btn.className = `
-                aspect-square rounded-[3.5rem] transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-2xl flex flex-col items-center justify-center p-4 relative overflow-hidden group
-                ${isBirthdayCard ? 'w-56 h-56 md:w-64 md:h-64' : ''}
+                aspect-square rounded-[3rem] transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-2xl flex flex-col items-center justify-center p-3 relative overflow-hidden group
+                ${isBirthdayCard ? 'w-48 h-48 md:w-56 md:h-56' : ''}
                 ${student 
-                    ? `${themeClass} border-4 ${isMonitor ? 'monitor-glow-effect' : (isEarly ? 'early-silver-glow' : 'border-white')} ${isBirthdayCard ? 'ring-[12px] ring-yellow-400/30' : ''}` 
-                    : 'bg-white/10 hover:bg-white/25 border-4 border-dashed border-white/40 backdrop-blur-md'}
+                    ? `${themeClass} border-4 ${isMonitor ? 'monitor-glow' : (isEarly ? 'early-silver-glow' : 'border-white/50')} ${isBirthdayCard ? 'ring-8 ring-pink-200 shadow-pink-500/50' : ''}` 
+                    : 'bg-white/20 hover:bg-white/40 border-4 border-dashed border-white/50 backdrop-blur-md'}
             `;
 
             if (student) {
@@ -700,33 +760,33 @@
                 let silverStarsHtml = '';
                 if (isEarly) {
                     for(let s=0; s<5; s++) {
-                        const delay = (s * 0.6) + 's';
-                        const left = (15 + Math.random() * 70) + '%';
-                        const top = (15 + Math.random() * 70) + '%';
-                        silverStarsHtml += `<i data-lucide="star" class="star-particle w-4 h-4 fill-slate-200" style="left:${left}; top:${top}; animation-delay:${delay}"></i>`;
+                        const delay = (s * 0.5) + 's';
+                        const left = (10 + Math.random() * 80) + '%';
+                        const top = (10 + Math.random() * 80) + '%';
+                        silverStarsHtml += `<i data-lucide="star" class="silver-star-particle w-3 h-3 fill-slate-300" style="left:${left}; top:${top}; animation-delay:${delay}"></i>`;
                     }
                 }
 
                 btn.innerHTML = `
                     ${silverStarsHtml}
-                    <div class="flex flex-col items-center w-full h-full justify-between py-3 relative z-20">
-                        ${isMonitor ? '<div class="absolute -top-2 -right-2 z-20"><i data-lucide="crown" class="w-10 h-10 text-yellow-400 fill-yellow-400 drop-shadow-xl"></i></div>' : ''}
-                        ${isEarly ? '<div class="absolute -top-2 -left-2 z-20"><i data-lucide="sparkles" class="w-8 h-8 text-white fill-white/20 drop-shadow-lg"></i></div>' : ''}
+                    <div class="flex flex-col items-center w-full h-full justify-between py-2 relative z-20">
+                        ${isMonitor ? '<div class="absolute -top-1 -right-1 z-20"><i data-lucide="crown" class="w-8 h-8 text-yellow-400 fill-yellow-400 drop-shadow-lg"></i></div>' : ''}
+                        ${isEarly ? '<div class="absolute -top-1 -left-1 z-20"><i data-lucide="zap" class="w-7 h-7 text-slate-300 fill-white drop-shadow-md"></i></div>' : ''}
                         
-                        <div class="w-28 h-28 md:w-32 md:h-32 rounded-[3rem] overflow-hidden border-4 ${isEarly ? 'border-slate-100' : 'border-white'} shadow-2xl bg-orange-50 group-hover:rotate-3 transition-transform duration-500">
-                            ${student.avatar_image ? `<img src="${student.avatar_image}" class="w-full h-full object-cover">` : `<div class="w-full h-full flex items-center justify-center text-orange-200"><i data-lucide="user" class="w-16 h-16"></i></div>`}
+                        <div class="w-24 h-24 md:w-28 md:h-28 rounded-[2.5rem] overflow-hidden border-4 ${isEarly ? 'border-slate-200' : 'border-white'} shadow-2xl bg-sky-50 group-hover:rotate-3 transition-transform">
+                            ${student.avatar_image ? `<img src="${student.avatar_image}" class="w-full h-full object-cover">` : `<div class="w-full h-full flex items-center justify-center text-sky-200"><i data-lucide="user" class="w-12 h-12"></i></div>`}
                         </div>
                         <div class="w-full">
-                            <span class="text-lg md:text-xl font-black block truncate px-2" style="color: ${nameColor}">${shortName}</span>
-                            <span class="text-[10px] font-bold opacity-60 block uppercase tracking-[0.1em]">${isMonitor ? 'Lớp Trưởng 6A2' : 'Thành viên 6A2'}</span>
+                            <span class="text-base md:text-lg font-black block truncate px-2" style="color: ${nameColor}">${shortName}</span>
+                            <span class="text-[10px] font-bold opacity-60 block uppercase tracking-tighter">${isMonitor ? 'Lớp Trưởng 6A2' : (isEarly ? 'Truy cập sớm' : '6A2 Long Trường')}</span>
                         </div>
                     </div>
                 `;
             } else {
                 btn.innerHTML = `
                     <div class="flex flex-col items-center group-hover:animate-pulse">
-                        <span class="text-white font-black text-6xl tracking-tighter drop-shadow-lg">#${i + 1}</span>
-                        <span class="text-[11px] font-black text-white/60 uppercase mt-3 tracking-[0.2em]">Chọn chỗ</span>
+                        <span class="text-white/60 font-black text-5xl tracking-tighter drop-shadow-md">#${i + 1}</span>
+                        <span class="text-xs font-black text-white/40 uppercase mt-2 tracking-[0.2em]">Chọn Slot</span>
                     </div>
                 `;
             }
@@ -734,14 +794,13 @@
         }
 
         /**
-         * Hàm Render sơ đồ lớp tổng thể.
-         * Chức năng: Tạo ra lưới 50 ô (trừ những ô đang hiển thị sinh nhật ở bảng trên).
+         * Render sơ đồ chính
          */
         function renderGrid() {
             const grid = document.getElementById('student-grid');
             grid.innerHTML = '';
             for (let i = 0; i < 50; i++) {
-                if (birthdayList.has(i)) continue; // Ô này đã được hiển thị ở bảng tin sinh nhật
+                if (birthdayList.has(i)) continue;
                 const student = students[i];
                 const card = createStudentCard(i, student);
                 grid.appendChild(card);
@@ -750,8 +809,7 @@
             updateBirthdayUI();
         }
 
-        // --- HỆ THỐNG COMMAND LINE (DÀNH CHO QUẢN TRỊ VIÊN) ---
-        // Nhấn phím "/" để mở dòng lệnh
+        // --- HỆ THỐNG COMMAND LINE ---
         window.addEventListener('keydown', (e) => {
             if (e.key === '/') {
                 if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
@@ -766,7 +824,6 @@
             }
         });
 
-        // Xử lý các lệnh khi nhấn Enter trong CLI
         document.getElementById('cmd-input').addEventListener('keypress', async (e) => {
             if (e.key === 'Enter') {
                 const input = e.target.value.trim();
@@ -777,28 +834,28 @@
                     const slotId = parseInt(parts[1]) - 1;
                     if (!isNaN(slotId) && students[slotId]) {
                         await updateField(slotId, { role: 'monitor' });
-                        alert(`Đã thăng chức Lớp trưởng cho ô số #${slotId+1}`);
+                        alert(`Đã đặt #${slotId+1} là Lớp trưởng!`);
                     }
                 } 
                 else if (command === 'set_early') {
                     const slotId = parseInt(parts[1]) - 1;
                     if (!isNaN(slotId) && students[slotId]) {
                         await updateField(slotId, { is_early: true });
-                        alert(`Đã cấp quyền Truy cập sớm cho ô số #${slotId+1}`);
+                        alert(`Đã cấp ưu tiên Ngôi Sao Bạc cho #${slotId+1}!`);
                     }
                 }
                 else if (command === 'lock') {
                     const slotId = parseInt(parts[1]) - 1;
                     if (!isNaN(slotId) && students[slotId]) {
                         await updateField(slotId, { is_locked: true });
-                        alert(`Đã KHÓA ô số #${slotId+1}`);
+                        alert(`Đã KHÓA quyền chỉnh sửa của ô #${slotId+1}!`);
                     }
                 }
                 else if (command === 'unlock') {
                     const slotId = parseInt(parts[1]) - 1;
                     if (!isNaN(slotId) && students[slotId]) {
                         await updateField(slotId, { is_locked: false });
-                        alert(`Đã MỞ KHÓA ô số #${slotId+1}`);
+                        alert(`Đã MỞ KHÓA quyền chỉnh sửa cho ô #${slotId+1}!`);
                     }
                 }
                 
@@ -808,19 +865,12 @@
             }
         });
 
-        /**
-         * Hàm cập nhật nhanh một trường thông tin cho sinh viên.
-         */
         async function updateField(id, payload) {
-            try {
-                await supabaseClient.from('students').update(payload).eq('id', id);
-                console.log(`Hệ thống: Đã cập nhật ô #${id+1}`);
-            } catch(e) { console.error('Lỗi thực thi lệnh:', e); }
+            try { await supabaseClient.from('students').update(payload).eq('id', id); } catch(e) { console.error(e); }
         }
 
         /**
-         * Điều hướng mở Modal (Xem hồ sơ hoặc Chỉnh sửa).
-         * @param {number} index - Chỉ số của ô học sinh.
+         * Mở Modal
          */
         function handleOpenSlot(index) {
             selectedSlot = index;
@@ -829,12 +879,11 @@
             const editBtn = document.getElementById('edit-btn');
             const deleteBtn = document.getElementById('delete-btn');
             
-            document.getElementById('modal-subtitle').innerText = index === 99 ? `GIÁO VIÊN CHỦ NHIỆM` : `Ô SỐ #${index + 1} - 6A2`;
+            document.getElementById('modal-subtitle').innerText = index === 99 ? `GIÁO VIÊN CHỦ NHIỆM` : `Ô SỐ #${index + 1}`;
             deleteBtn.classList.add('hidden');
 
             if (student) {
                 viewMode = 'view';
-                // Kiểm tra trạng thái khóa của ô từ chủ sở hữu
                 if (student.is_locked) {
                     editBtn.classList.add('hidden');
                 } else {
@@ -842,14 +891,13 @@
                 }
                 renderViewContent(student);
             } else {
-                // Kiểm tra nếu người dùng đã đăng ký ô khác
                 if (index !== 99 && mySlotIndex !== null && students[mySlotIndex]) {
-                    alert(`Bạn đã đăng ký thông tin tại ô số #${parseInt(mySlotIndex) + 1}.`);
+                    alert(`Bạn đã có profile tại ô số #${parseInt(mySlotIndex) + 1}.`);
                     return;
                 }
                 viewMode = 'edit';
                 editBtn.classList.add('hidden');
-                currentTheme = colorThemes[0].class; 
+                currentTheme = 'bg-white text-blue-900'; 
                 renderEditContent();
             }
             
@@ -858,9 +906,6 @@
             lucide.createIcons();
         }
 
-        /**
-         * Đóng cửa sổ Modal.
-         */
         function closeModal() {
             document.getElementById('modal').classList.add('hidden');
             document.getElementById('modal').classList.remove('flex');
@@ -868,188 +913,156 @@
         }
 
         /**
-         * Hàm hiển thị giao diện xem chi tiết hồ sơ thành viên.
+         * Render nội dung xem profile
          */
         function renderViewContent(student) {
             const header = document.getElementById('modal-header');
             const isTeacher = selectedSlot === 99;
 
             header.className = isTeacher 
-                ? 'p-12 flex justify-between items-center text-white bg-gradient-to-r from-red-600 to-red-800' 
-                : 'p-12 flex justify-between items-center text-white bg-gradient-to-r from-red-500 to-orange-500';
+                ? 'p-10 flex justify-between items-center text-white bg-gradient-to-r from-blue-700 to-indigo-800' 
+                : 'p-10 flex justify-between items-center text-white bg-gradient-to-r from-sky-600 to-blue-700';
 
             document.getElementById('modal-title').innerText = isTeacher ? 'Hồ Sơ Giáo Viên' : (student.role === 'monitor' ? 'Hồ Sơ Lớp Trưởng' : 'Thông Tin Cá Nhân');
-            document.getElementById('modal-icon').innerHTML = isTeacher ? '<i data-lucide="award" class="w-8 h-8"></i>' : (student.role === 'monitor' ? '<i data-lucide="crown" class="w-8 h-8"></i>' : '<i data-lucide="user" class="w-8 h-8"></i>');
+            document.getElementById('modal-icon').innerHTML = isTeacher ? '<i data-lucide="award" class="w-7 h-7"></i>' : (student.role === 'monitor' ? '<i data-lucide="crown" class="w-7 h-7"></i>' : '<i data-lucide="user" class="w-7 h-7"></i>');
 
             const content = document.getElementById('modal-content');
             content.innerHTML = `
-                <div class="flex flex-col items-center mb-8">
-                    <div class="w-56 h-56 rounded-[4rem] bg-white border-[10px] ${isTeacher ? 'border-red-400' : (student.role === 'monitor' ? 'border-yellow-400' : 'border-white')} flex items-center justify-center overflow-hidden shadow-2xl rotate-2">
-                        ${student.avatar_image ? `<img src="${student.avatar_image}" class="w-full h-full object-cover">` : `<i data-lucide="user" class="text-orange-100 w-28 h-28"></i>`}
+                <div class="flex flex-col items-center mb-6">
+                    <div class="w-52 h-52 rounded-[4rem] bg-white border-8 ${isTeacher ? 'border-blue-400' : (student.role === 'monitor' ? 'border-yellow-400' : 'border-sky-50')} flex items-center justify-center overflow-hidden shadow-2xl rotate-2">
+                        ${student.avatar_image ? `<img src="${student.avatar_image}" class="w-full h-full object-cover">` : `<i data-lucide="user" class="text-sky-100 w-24 h-24"></i>`}
                     </div>
                 </div>
-                <div class="grid gap-10">
-                    <div class="space-y-4">
-                        <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] flex items-center gap-3 px-4"><i data-lucide="user" class="w-5 h-5 text-red-500"></i> ${isTeacher ? 'Họ và tên giáo viên' : 'Tên của tớ là'}</label>
-                        <div id="swipe-plate" class="px-10 py-8 bg-white rounded-[3rem] font-black text-4xl shadow-xl border-b-[12px] border-orange-100 cursor-grab active:cursor-grabbing relative overflow-hidden group" style="color: ${student.name_color || '#1e293b'}">
+                <div class="grid gap-8">
+                    <div class="space-y-3">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3"><i data-lucide="user" class="w-4 h-4 text-blue-400"></i> ${isTeacher ? 'Họ và tên' : 'Tên tớ là...'}</label>
+                        <div id="swipe-name-plate" class="px-10 py-6 bg-white rounded-[2.5rem] font-black text-4xl shadow-inner border-b-8 border-blue-50 cursor-grab active:cursor-grabbing relative overflow-hidden group" style="color: ${student.name_color || '#1e3a8a'}">
                             <span class="relative z-10">${student.name}</span>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] flex items-center gap-3 px-4"><i data-lucide="calendar" class="w-5 h-5 text-orange-500"></i> Ngày sinh nhật</label>
-                            <div class="px-10 py-6 bg-white rounded-[2.5rem] font-black text-slate-700 shadow-xl border-l-[12px] border-yellow-400">${student.birthday || 'Chưa bật mí...'}</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-3">
+                            <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3"><i data-lucide="calendar" class="w-4 h-4 text-emerald-400"></i> Sinh nhật</label>
+                            <div class="px-8 py-5 bg-white rounded-[2rem] font-black text-slate-700 shadow-inner border-l-[10px] border-emerald-400">${student.birthday || 'Bí mật...'}</div>
                         </div>
-                        <div class="space-y-4">
-                            <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] flex items-center gap-3 px-4"><i data-lucide="rocket" class="w-5 h-5 text-red-400"></i> ${isTeacher ? 'Lời nhắn nhủ' : 'Ước mơ tương lai'}</label>
-                            <div class="px-10 py-6 bg-red-50 rounded-[2.5rem] font-black text-red-700 shadow-xl border-l-[12px] border-red-400">${student.dream || 'Chinh phục mùa hè'}</div>
+                        <div class="space-y-3">
+                            <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3"><i data-lucide="rocket" class="w-4 h-4 text-orange-400"></i> ${isTeacher ? 'Lời nhắn nhủ' : 'Ước mơ'}</label>
+                            <div class="px-8 py-5 bg-orange-50 rounded-[2rem] font-black text-orange-700 shadow-inner">${student.dream || (isTeacher ? 'Dạy tốt học tốt' : 'Bay thật xa')}</div>
                         </div>
                     </div>
-                    <div class="space-y-4">
-                        <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] flex items-center gap-3 px-4"><i data-lucide="heart" class="w-5 h-5 text-pink-500"></i> ${isTeacher ? 'Đôi lời về lớp 6A2' : 'Sở thích cá nhân'}</label>
-                        <div class="px-12 py-10 bg-white rounded-[3.5rem] text-slate-600 font-bold leading-relaxed italic border-t-[12px] border-orange-50 shadow-xl text-xl">"${student.hobby || 'Thành viên này rất bí ẩn và thú vị!'}"</div>
+                    <div class="space-y-3">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3"><i data-lucide="heart" class="w-4 h-4 text-red-400"></i> Sở thích</label>
+                        <div class="px-10 py-8 bg-white rounded-[2.5rem] text-slate-600 font-bold leading-relaxed italic border-t-8 border-sky-50 shadow-inner text-lg">"${student.hobby || 'Một bí ẩn chưa có lời giải...'}"</div>
                     </div>
                 </div>
             `;
             lucide.createIcons();
-            attachSwipeLogic(); // Kích hoạt bộ lắng nghe vuốt
+            attachSwipeListener();
         }
 
-        /**
-         * Gắn logic vuốt để thực hiện hành động KHÓA/MỞ hồ sơ (Admin hoặc cá nhân).
-         */
-        function attachSwipeLogic() {
-            const plate = document.getElementById('swipe-plate');
+        function attachSwipeListener() {
+            const plate = document.getElementById('swipe-name-plate');
             if (!plate) return;
-
             plate.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, false);
-            plate.addEventListener('touchend', (e) => { 
-                touchEndX = e.changedTouches[0].screenX; 
-                processSwipe(); 
-            }, false);
-            
-            // Hỗ trợ thêm chuột máy tính
+            plate.addEventListener('touchend', (e) => { touchEndX = e.changedTouches[0].screenX; handleSwipeGesture(); }, false);
             plate.addEventListener('mousedown', (e) => { touchStartX = e.screenX; }, false);
-            plate.addEventListener('mouseup', (e) => { 
-                touchEndX = e.screenX; 
-                processSwipe(); 
-            }, false);
+            plate.addEventListener('mouseup', (e) => { touchEndX = e.screenX; handleSwipeGesture(); }, false);
         }
 
-        /**
-         * Xử lý hướng vuốt: Trái -> Khóa, Phải -> Mở.
-         */
-        async function processSwipe() {
+        async function handleSwipeGesture() {
             const diff = touchEndX - touchStartX;
-            const threshold = 120; 
+            const threshold = 100;
             const student = students[selectedSlot];
-
             if (!student) return;
 
             if (diff < -threshold) {
-                // Vuốt trái -> Thực hiện khóa ô
                 if (student.is_locked) return;
                 await updateField(selectedSlot, { is_locked: true });
-                triggerFeedback("ĐÃ KHÓA Ô");
+                showSwipeFeedback("ĐÃ KHÓA CHỈNH SỬA");
                 fetchStudents();
-                setTimeout(() => handleOpenSlot(selectedSlot), 600);
+                setTimeout(() => handleOpenSlot(selectedSlot), 500);
             } 
             else if (diff > threshold) {
-                // Vuốt phải -> Thực hiện mở khóa ô
                 if (!student.is_locked) return;
                 await updateField(selectedSlot, { is_locked: false });
-                triggerFeedback("ĐÃ MỞ KHÓA Ô");
+                showSwipeFeedback("ĐÃ MỞ KHÓA CHỈNH SỬA");
                 fetchStudents();
-                setTimeout(() => handleOpenSlot(selectedSlot), 600);
+                setTimeout(() => handleOpenSlot(selectedSlot), 500);
             }
         }
 
-        /**
-         * Hiển thị phản hồi trực quan khi người dùng thực hiện vuốt thành công.
-         */
-        function triggerFeedback(text) {
-            const msg = document.getElementById('swipe-msg');
-            msg.innerText = text;
-            msg.style.opacity = '1';
-            msg.style.transform = 'translate(-50%, -50%) scale(1.1)';
-            setTimeout(() => {
-                msg.style.opacity = '0';
-                msg.style.transform = 'translate(-50%, -50%) scale(1)';
-            }, 2000);
+        function showSwipeFeedback(text) {
+            const msgEl = document.getElementById('swipe-msg');
+            msgEl.innerText = text;
+            msgEl.style.opacity = '1';
+            setTimeout(() => msgEl.style.opacity = '0', 2000);
         }
 
         /**
-         * Hàm hiển thị giao diện soạn thảo (Edit Profile).
-         * @param {object} existingData - Dữ liệu hiện có của người dùng (nếu có).
+         * Render nội dung chỉnh sửa
          */
         function renderEditContent(existingData = null) {
             const isTeacher = selectedSlot === 99;
             if (existingData) {
-                currentTheme = existingData.color_theme || colorThemes[0].class;
+                currentTheme = existingData.color_theme || 'bg-white text-blue-900';
                 if (!isTeacher) document.getElementById('delete-btn').classList.remove('hidden');
             }
 
             const header = document.getElementById('modal-header');
-            header.className = isTeacher ? 'p-12 flex justify-between items-center text-white bg-red-700' : 'p-12 flex justify-between items-center text-white bg-gradient-to-r from-red-600 to-orange-500';
-            document.getElementById('modal-title').innerText = existingData ? 'Chỉnh Sửa Hồ Sơ' : 'Khởi Tạo Hồ Sơ Mới';
-            document.getElementById('modal-icon').innerHTML = '<i data-lucide="sparkles" class="w-8 h-8"></i>';
+            header.className = isTeacher ? 'p-10 flex justify-between items-center text-white bg-indigo-600' : 'p-10 flex justify-between items-center text-white bg-gradient-to-r from-blue-600 to-sky-500';
+            document.getElementById('modal-title').innerText = existingData ? 'Chỉnh Sửa Profile' : 'Tạo Profile';
+            document.getElementById('modal-icon').innerHTML = '<i data-lucide="rocket" class="w-7 h-7"></i>';
 
             const content = document.getElementById('modal-content');
             content.innerHTML = `
-                <div class="flex flex-col items-center mb-10">
-                    <div onclick="document.getElementById('imageInput').click()" class="relative cursor-pointer group">
-                        <div id="preview-box" class="w-56 h-56 rounded-[4rem] bg-white border-8 border-dashed border-orange-200 group-hover:border-red-500 flex items-center justify-center overflow-hidden shadow-2xl transition-all duration-500 rotate-2 group-hover:rotate-0">
-                            ${existingData?.avatar_image ? `<img src="${existingData.avatar_image}" class="w-full h-full object-cover">` : `<i data-lucide="camera" class="text-orange-200 w-20 h-20"></i>`}
+                <div class="flex flex-col items-center mb-6">
+                    <div onclick="document.getElementById('fileInput').click()" class="relative cursor-pointer group">
+                        <div id="avatar-preview" class="w-52 h-52 rounded-[4rem] bg-white border-8 border-dashed border-blue-200 group-hover:border-blue-500 flex items-center justify-center overflow-hidden shadow-2xl transition-all duration-500 rotate-2 group-hover:rotate-0">
+                            ${existingData?.avatar_image ? `<img src="${existingData.avatar_image}" class="w-full h-full object-cover">` : `<i data-lucide="user" class="text-sky-100 w-24 h-24"></i>`}
                         </div>
-                        <div class="absolute -bottom-5 -right-5 bg-red-600 text-white p-6 rounded-[2rem] shadow-2xl animate-bounce border-4 border-white">
-                            <i data-lucide="image" class="w-8 h-8"></i>
+                        <div class="absolute -bottom-4 -right-4 bg-blue-600 text-white p-5 rounded-[1.8rem] shadow-2xl animate-bounce border-4 border-white">
+                            <i data-lucide="camera" class="w-7 h-7"></i>
                         </div>
-                        <input type="file" id="imageInput" class="hidden" accept="image/*" onchange="processImage(this)">
+                        <input type="file" id="fileInput" class="hidden" accept="image/*" onchange="handleImage(this)">
                     </div>
                 </div>
-                
-                <div class="grid gap-10">
-                    <div class="space-y-5">
-                        <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] px-4">Lựa chọn tông màu chủ đạo</label>
-                        <div class="grid grid-cols-4 sm:grid-cols-8 gap-4" id="theme-grid">
+                <div class="grid gap-8">
+                    <div class="space-y-4">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3">Chọn màu sắc chủ đạo (Hỗ trợ Gradient)</label>
+                        <div class="grid grid-cols-4 sm:grid-cols-8 gap-3" id="theme-selector">
                             ${colorThemes.map(t => `
-                                <div onclick="setTheme('${t.class}', this)" 
-                                     class="theme-option w-full aspect-square rounded-[1.5rem] ${t.class} shadow-lg cursor-pointer border-4 transition-all ${currentTheme === t.class ? 'scale-110 border-blue-500' : 'border-transparent'}"
+                                <div onclick="selectTheme('${t.class}', this)" 
+                                     class="theme-option w-full aspect-square rounded-2xl ${t.class} shadow-md ${currentTheme === t.class ? 'selected' : ''}"
                                      title="${t.name}">
                                 </div>
                             `).join('')}
                         </div>
                     </div>
-                    
-                    <div class="space-y-4">
-                        <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] px-4">Họ và Tên đầy đủ</label>
-                        <input id="form-name" ${isTeacher ? 'disabled' : ''} placeholder="Họ và tên của bạn..." class="w-full px-10 py-7 bg-white border-4 border-orange-50 focus:border-red-400 rounded-[3rem] outline-none font-black text-slate-800 shadow-xl transition-all" value="${isTeacher ? 'Nguyễn Thị Hồng Nhung' : (existingData?.name || '')}">
+                    <div class="space-y-3">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3">Họ và Tên</label>
+                        <input id="form-name" ${isTeacher ? 'disabled' : ''} placeholder="Nhập họ và tên đầy đủ" class="w-full px-8 py-5 bg-slate-100 border-4 border-slate-100 focus:border-blue-400 rounded-[2rem] outline-none font-black text-blue-900 shadow-inner" value="${isTeacher ? 'Cô Nguyễn Thị Hồng Nhung' : (existingData?.name || '')}">
                     </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                        <div class="space-y-4">
-                            <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] px-4">Ngày sinh nhật (DD/MM)</label>
-                            <input id="form-birthday" placeholder="Ví dụ: 15/05" class="w-full px-10 py-6 bg-white border-4 border-orange-50 focus:border-red-400 rounded-[2.5rem] outline-none font-black text-slate-800 shadow-xl" value="${existingData?.birthday || ''}">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-3">
+                            <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3">Sinh nhật</label>
+                            <input id="form-birthday" placeholder="Ngày/Tháng/Năm" class="w-full px-8 py-5 bg-white border-4 border-slate-100 focus:border-blue-400 rounded-[2rem] outline-none font-black text-blue-900" value="${existingData?.birthday || ''}">
                         </div>
-                        <div class="space-y-4">
-                            <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] px-4">${isTeacher ? 'Thông điệp' : 'Ước mơ'}</label>
-                            <input id="form-dream" placeholder="..." class="w-full px-10 py-6 bg-white border-4 border-orange-50 focus:border-red-400 rounded-[2.5rem] outline-none font-black text-slate-800 shadow-xl" value="${existingData?.dream || ''}">
+                        <div class="space-y-3">
+                            <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3">${isTeacher ? 'Lời nhắn nhủ' : 'Ước mơ'}</label>
+                            <input id="form-dream" placeholder="${isTeacher ? 'Dạy tốt học tốt' : 'Sau này muốn làm...'}" class="w-full px-8 py-5 bg-white border-4 border-slate-100 focus:border-blue-400 rounded-[2rem] outline-none font-black text-blue-900" value="${existingData?.dream || ''}">
                         </div>
                     </div>
-                    
-                    <div class="space-y-4">
-                        <label class="text-[11px] font-black text-slate-400 uppercase tracking-[0.4em] px-4">${isTeacher ? 'Giới thiệu bản thân' : 'Sở thích & Tính cách'}</label>
-                        <textarea id="form-hobby" placeholder="Hãy viết gì đó thật ấn tượng..." class="w-full px-10 py-8 bg-white border-4 border-orange-50 focus:border-red-400 rounded-[3rem] outline-none h-40 resize-none font-black text-slate-800 shadow-xl">${existingData?.hobby || ''}</textarea>
+                    <div class="space-y-3">
+                        <label class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] flex items-center gap-2 px-3">Sở thích cá nhân</label>
+                        <textarea id="form-hobby" placeholder="Chia sẻ cảm nghĩ..." class="w-full px-8 py-5 bg-white border-4 border-slate-100 focus:border-blue-400 rounded-[2.5rem] outline-none h-32 resize-none font-black text-blue-900 shadow-inner">${existingData?.hobby || ''}</textarea>
                     </div>
-                    
-                    <div class="space-y-5 bg-red-50 p-10 rounded-[3.5rem] border-4 border-red-100">
-                        <label class="text-[11px] font-black text-red-600 uppercase tracking-[0.4em] flex items-center gap-3"><i data-lucide="lock" class="w-5 h-5"></i> Mật khẩu bảo vệ (Dùng khi cần chỉnh sửa hồ sơ)</label>
-                        <input id="form-password" type="password" placeholder="Nhập mật khẩu riêng tư..." class="w-full px-10 py-6 bg-white border-4 border-red-200 focus:border-red-600 rounded-[2rem] outline-none font-black text-red-900 shadow-inner" value="${existingData?.password || ''}">
+                    <div class="space-y-4 bg-blue-50/80 p-8 rounded-[3rem] border-4 border-blue-100">
+                        <label class="text-xs font-black text-blue-600 uppercase tracking-widest flex items-center gap-2"><i data-lucide="lock" class="w-4 h-4"></i> Mật khẩu bảo vệ</label>
+                        <input id="form-password" type="password" placeholder="Mật khẩu của bạn..." class="w-full px-8 py-5 bg-white border-4 border-blue-200 focus:border-blue-600 rounded-[1.5rem] outline-none font-black text-blue-950 shadow-inner" value="${existingData?.password || ''}">
                     </div>
-                    
-                    <div class="pt-6">
-                        <button onclick="saveDataToServer()" id="submit-btn" class="w-full bg-gradient-to-r from-red-600 via-orange-600 to-red-700 text-white font-black py-8 rounded-[3.5rem] shadow-[0_20px_40px_rgba(239,68,68,0.4)] hover:-translate-y-2 active:translate-y-1 active:shadow-none transition-all uppercase tracking-[0.4em] text-2xl">
-                            LƯU HỒ SƠ 6A2
+                    <div class="pt-4">
+                        <button onclick="submitForm()" id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-700 text-white font-black py-7 rounded-[2.5rem] shadow-[0_15px_30px_rgba(37,99,235,0.4)] hover:-translate-y-1 transition-all uppercase tracking-[0.3em] text-xl">
+                            Cập Nhật Hồ Sơ
                         </button>
                     </div>
                 </div>
@@ -1057,193 +1070,101 @@
             lucide.createIcons();
         }
 
-        /**
-         * Thiết lập tông màu được chọn trong bảng chỉnh sửa.
-         */
-        function setTheme(themeClass, el) {
+        function selectTheme(themeClass, el) {
             currentTheme = themeClass;
-            document.querySelectorAll('.theme-option').forEach(opt => {
-                opt.classList.remove('scale-110', 'border-blue-500');
-                opt.classList.add('border-transparent');
-            });
-            el.classList.add('scale-110', 'border-blue-500');
-            el.classList.remove('border-transparent');
+            document.querySelectorAll('.theme-option').forEach(opt => opt.classList.remove('selected'));
+            el.classList.add('selected');
         }
 
-        /**
-         * Chức năng xác minh quyền chỉnh sửa thông qua mật khẩu.
-         */
         function editCurrentProfile() {
             viewMode = 'auth';
             const header = document.getElementById('modal-header');
-            header.className = 'p-12 flex justify-between items-center text-white bg-amber-500 shadow-lg';
-            document.getElementById('modal-title').innerText = 'XÁC THỰC QUYỀN';
-            document.getElementById('modal-icon').innerHTML = '<i data-lucide="shield-check" class="w-8 h-8"></i>';
+            header.className = 'p-10 flex justify-between items-center text-white bg-amber-500';
+            document.getElementById('modal-title').innerText = 'Xác Minh';
+            document.getElementById('modal-icon').innerHTML = '<i data-lucide="lock" class="w-7 h-7"></i>';
             document.getElementById('edit-btn').classList.add('hidden');
 
             const content = document.getElementById('modal-content');
             content.innerHTML = `
-                <div class="text-center py-16 space-y-10">
-                    <div class="w-32 h-32 bg-amber-100 text-amber-600 rounded-[3rem] flex items-center justify-center mx-auto shadow-inner border-4 border-amber-200">
-                        <i data-lucide="lock" class="w-16 h-16 animate-pulse"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-4xl font-black text-slate-800">Cửa sổ bảo mật</h4>
-                        <p class="text-slate-500 font-bold mt-4 text-lg">Vui lòng nhập đúng mật khẩu bạn đã tạo cho ô #${selectedSlot + 1}.</p>
-                    </div>
-                    <input id="auth-pass" type="password" autoFocus placeholder="••••••" class="w-full max-w-sm px-10 py-8 bg-white border-4 border-slate-100 focus:border-amber-400 rounded-[2.5rem] outline-none text-center text-4xl font-black text-amber-600 shadow-2xl tracking-[0.5em] transition-all">
-                    <div id="error-box" class="text-red-500 text-sm font-black hidden uppercase tracking-widest">Mật khẩu không chính xác!</div>
-                    <div class="flex flex-col gap-6 max-w-sm mx-auto">
-                        <button onclick="verifyAccess()" class="w-full bg-amber-500 text-white font-black py-7 rounded-[2.5rem] shadow-[0_12px_0_rgb(217,119,6)] active:translate-y-2 active:shadow-none transition-all uppercase tracking-[0.3em] text-xl">XÁC NHẬN</button>
-                        <button onclick="forgotPassUI()" class="text-amber-700 font-black text-sm uppercase tracking-widest hover:underline">Quên mật khẩu?</button>
-                    </div>
+                <div class="text-center py-12 space-y-8">
+                    <div class="w-28 h-28 bg-amber-100 text-amber-600 rounded-[2.5rem] flex items-center justify-center mx-auto shadow-inner"><i data-lucide="lock" class="w-14 h-14 animate-pulse"></i></div>
+                    <input id="verify-pass" type="password" placeholder="Mật khẩu..." class="w-full px-8 py-6 bg-white border-4 border-slate-100 focus:border-amber-400 rounded-[2rem] outline-none text-center text-2xl font-black text-amber-600 shadow-xl transition-all">
+                    <div id="auth-error" class="text-red-500 text-sm font-black hidden">Mật khẩu không chính xác!</div>
+                    <button onclick="verifyPassword()" class="w-full bg-amber-500 text-white font-black py-6 rounded-[2rem] shadow-[0_10px_0_rgb(217,119,6)] active:translate-y-2 uppercase tracking-widest text-xl">Xác Nhận</button>
                 </div>
             `;
             lucide.createIcons();
         }
 
-        /**
-         * Giao diện khôi phục mật khẩu nếu lỡ quên.
-         */
-        function forgotPassUI() {
-            const content = document.getElementById('modal-content');
-            content.innerHTML = `
-                <div class="text-center py-16 space-y-10">
-                    <div class="w-32 h-32 bg-orange-100 text-orange-500 rounded-[3rem] flex items-center justify-center mx-auto shadow-inner border-4 border-orange-200">
-                        <i data-lucide="search" class="w-16 h-16 animate-bounce"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-3xl font-black text-slate-800 uppercase tracking-tighter">Khôi phục mật khẩu</h4>
-                        <p class="text-slate-500 font-bold mt-4">Vui lòng nhập đúng <span class="text-orange-600">Họ và Tên</span> của bạn để quét hệ thống.</p>
-                    </div>
-                    <input id="forgot-name" type="text" placeholder="Nhập tên của bạn..." class="w-full max-w-md px-10 py-7 bg-white border-4 border-orange-100 focus:border-red-400 rounded-[2.5rem] outline-none text-center text-2xl font-black text-orange-600 shadow-xl">
-                    <div id="forgot-msg" class="hidden font-black text-red-500 animate-pulse">THÔNG TIN KHÔNG KHỚP!</div>
-                    <div id="forgot-result" class="hidden p-10 bg-gradient-to-br from-orange-50 to-red-50 border-4 border-orange-200 rounded-[3rem] text-red-900 font-black text-3xl shadow-xl"></div>
-                    <div class="flex gap-6 max-w-md mx-auto">
-                        <button onclick="editCurrentProfile()" class="flex-1 bg-slate-200 text-slate-700 font-black py-6 rounded-[2rem] uppercase tracking-widest">Hủy</button>
-                        <button onclick="checkForgotName()" class="flex-[2] bg-orange-500 text-white font-black py-6 rounded-[2rem] shadow-[0_10px_0_rgb(234,88,12)] active:translate-y-2 uppercase tracking-widest text-lg">QUÉT DỮ LIỆU</button>
-                    </div>
-                </div>
-            `;
-            lucide.createIcons();
-        }
-
-        /**
-         * Đối soát thông tin tên để hiển thị lại mật khẩu (Recovery).
-         */
-        async function checkForgotName() {
-            const inputName = document.getElementById('forgot-name').value.trim();
-            const msgEl = document.getElementById('forgot-msg');
-            const resultEl = document.getElementById('forgot-result');
-            if (!inputName) return;
-
-            try {
-                const { data, error } = await supabaseClient.from('students').select('password').eq('id', selectedSlot).eq('name', inputName).single();
-                if (error || !data) {
-                    msgEl.classList.remove('hidden');
-                    resultEl.classList.add('hidden');
-                } else {
-                    msgEl.classList.add('hidden');
-                    resultEl.innerHTML = `<span class="text-xs block mb-3 opacity-60">MẬT KHẨU CỦA BẠN LÀ:</span> ${data.password}`;
-                    resultEl.classList.remove('hidden');
-                }
-            } catch (err) { console.error(err); }
-        }
-
-        /**
-         * Kiểm tra khớp mật khẩu để chuyển sang chế độ chỉnh sửa.
-         */
-        function verifyAccess() {
-            const pass = document.getElementById('auth-pass').value;
+        function verifyPassword() {
+            const pass = document.getElementById('verify-pass').value;
             const student = students[selectedSlot];
             if (student && student.password === pass) {
                 viewMode = 'edit';
                 renderEditContent(student);
-            } else {
-                document.getElementById('error-box').classList.remove('hidden');
-            }
+            } else { document.getElementById('auth-error').classList.remove('hidden'); }
         }
 
-        /**
-         * Xử lý xác nhận xóa hồ sơ để tránh thao tác nhầm.
-         */
         function confirmDelete() {
             const student = students[selectedSlot];
             const content = document.getElementById('modal-content');
             content.innerHTML = `
-                <div class="text-center py-16 space-y-10">
-                    <div class="w-32 h-32 bg-red-100 text-red-600 rounded-[3rem] flex items-center justify-center mx-auto shadow-inner border-4 border-red-200">
-                        <i data-lucide="trash-2" class="w-16 h-16 animate-bounce"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-3xl font-black text-slate-800 uppercase tracking-tighter">Xác nhận xóa hồ sơ</h4>
-                        <p class="text-slate-500 font-bold mt-4">Vui lòng nhập tên <span class="text-red-600">"${student.name}"</span> để xác nhận xóa vĩnh viễn.</p>
-                    </div>
-                    <input id="del-confirm-name" type="text" placeholder="..." class="w-full max-w-md px-10 py-7 bg-white border-4 border-slate-100 focus:border-red-400 rounded-[2.5rem] outline-none text-center text-2xl font-black text-red-600 shadow-xl">
-                    <div id="del-error" class="text-red-500 text-sm font-black hidden">Tên không chính xác!</div>
-                    <div class="flex gap-6 max-w-md mx-auto">
-                        <button onclick="renderEditContent(students[selectedSlot])" class="flex-1 bg-slate-200 text-slate-700 font-black py-7 rounded-[2rem] uppercase">Hủy</button>
-                        <button onclick="performDelete()" class="flex-[2] bg-red-600 text-white font-black py-7 rounded-[2rem] shadow-[0_12px_0_rgb(153,27,27)] active:translate-y-2 uppercase tracking-widest">XÓA NGAY</button>
+                <div class="text-center py-12 space-y-8">
+                    <div class="w-28 h-28 bg-rose-100 text-rose-600 rounded-[2.5rem] flex items-center justify-center mx-auto shadow-inner"><i data-lucide="trash-2" class="w-14 h-14 animate-bounce"></i></div>
+                    <p class="text-slate-500 font-bold mt-2">Nhập tên <span class="text-rose-600 font-black">"${student.name}"</span> để xóa.</p>
+                    <input id="confirm-name-delete" type="text" placeholder="..." class="w-full px-8 py-6 bg-white border-4 border-slate-100 focus:border-rose-400 rounded-[2rem] outline-none text-center text-2xl font-black text-rose-600 shadow-xl">
+                    <div class="flex gap-4">
+                        <button onclick="renderEditContent(students[selectedSlot])" class="flex-1 bg-slate-200 text-slate-700 font-black py-6 rounded-[2rem] uppercase">Hủy</button>
+                        <button onclick="executeDelete()" class="flex-[2] bg-rose-600 text-white font-black py-6 rounded-[2rem] shadow-[0_10px_0_rgb(159,18,57)] uppercase">Xóa</button>
                     </div>
                 </div>
             `;
             lucide.createIcons();
         }
 
-        /**
-         * Thực hiện xóa dữ liệu trên Supabase.
-         */
-        async function performDelete() {
-            const confirmVal = document.getElementById('del-confirm-name').value;
+        async function executeDelete() {
+            const inputName = document.getElementById('confirm-name-delete').value;
             const student = students[selectedSlot];
-            if (confirmVal === student.name) {
+            if (inputName === student.name) {
                 try {
                     await supabaseClient.from('students').delete().eq('id', selectedSlot);
                     localStorage.removeItem('6A2_my_slot');
                     mySlotIndex = null;
                     await fetchStudents();
                     closeModal();
-                } catch (e) { alert('Lỗi: ' + e.message); }
-            } else { document.getElementById('del-error').classList.remove('hidden'); }
+                } catch (e) { alert(e.message); }
+            }
         }
 
-        /**
-         * Xử lý chuyển đổi ảnh đại diện sang Base64 để lưu trữ.
-         */
-        function processImage(input) {
+        function handleImage(input) {
             const file = input.files[0];
             if (file) {
-                if (file.size > 2000000) { alert("Ảnh quá lớn! Vui lòng chọn ảnh dưới 2MB."); return; }
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     currentImageBase64 = e.target.result;
-                    document.getElementById('preview-box').innerHTML = `<img src="${currentImageBase64}" class="w-full h-full object-cover">`;
+                    document.getElementById('avatar-preview').innerHTML = `<img src="${currentImageBase64}" class="w-full h-full object-cover">`;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        /**
-         * Đẩy dữ liệu đã chỉnh sửa lên máy chủ Supabase (Upsert).
-         */
-        async function saveDataToServer() {
+        async function submitForm() {
             const isTeacher = selectedSlot === 99;
-            const nameInput = document.getElementById('form-name').value.trim();
-            const passInput = document.getElementById('form-password').value.trim();
+            const name = isTeacher ? "Cô Nguyễn Thị Hồng Nhung" : document.getElementById('form-name').value;
+            const password = document.getElementById('form-password').value;
             const btn = document.getElementById('submit-btn');
 
-            if (!nameInput || !passInput) { alert("Họ tên và Mật khẩu không được để trống!"); return; }
-
+            if (!name || !password) { alert("Thiếu tên hoặc mật khẩu!"); return; }
             btn.disabled = true;
-            btn.innerText = "ĐANG TẢI LÊN HỆ THỐNG...";
+            btn.innerText = "ĐANG LƯU...";
 
-            const payload = {
+            const studentData = {
                 id: selectedSlot,
-                name: nameInput,
-                birthday: document.getElementById('form-birthday').value.trim(),
-                dream: document.getElementById('form-dream').value.trim(),
-                hobby: document.getElementById('form-hobby').value.trim(),
-                password: passInput,
+                name: name,
+                birthday: document.getElementById('form-birthday').value,
+                dream: document.getElementById('form-dream').value,
+                hobby: document.getElementById('form-hobby').value,
+                password: password,
                 color_theme: currentTheme, 
                 avatar_image: currentImageBase64 || (students[selectedSlot]?.avatar_image || null),
                 role: isTeacher ? 'teacher' : (students[selectedSlot]?.role || 'student'),
@@ -1252,64 +1173,27 @@
             };
 
             try {
-                const { error } = await supabaseClient.from('students').upsert(payload);
+                const { error } = await supabaseClient.from('students').upsert(studentData);
                 if (error) throw error;
-                
-                if (!isTeacher) { 
-                    localStorage.setItem('6A2_my_slot', selectedSlot); 
-                    mySlotIndex = selectedSlot; 
-                }
-                
+                if (!isTeacher) { localStorage.setItem('6A2_my_slot', selectedSlot); mySlotIndex = selectedSlot; }
                 await fetchStudents();
                 closeModal();
-                triggerFeedback("CẬP NHẬT THÀNH CÔNG");
-            } catch (err) {
-                alert("Lỗi dữ liệu: " + err.message);
-                btn.disabled = false;
-                btn.innerText = "THỬ LẠI LƯU HỒ SƠ";
-            }
+            } catch (err) { alert(err.message); btn.disabled = false; }
         }
 
-        /**
-         * Quản lý sự kiện hiển thị nút Scroll-to-top.
-         */
-        window.addEventListener('scroll', () => {
-            const scrollBtn = document.getElementById('scroll-to-top');
-            if (window.scrollY > 500) {
-                scrollBtn.classList.add('visible');
-            } else {
-                scrollBtn.classList.remove('visible');
-            }
-        });
-
-        /**
-         * KHỞI CHẠY HỆ THỐNG KHI TRANG SẴN SÀNG (ENTRY POINT)
-         */
         window.onload = () => {
-            initSummerDecorations(); // Khởi tạo mây, nắng, hoa rơi
-            fetchStudents();          // Tải dữ liệu từ DB
-            
-            console.log("=========================================");
-            console.log("Hệ thống 6A2 - Summer High Fidelity Edition");
-            console.log("Trạng thái: Đã sẵn sàng vận hành.");
-            console.log("=========================================");
+            initDecorations();
+            fetchStudents(); 
+            console.log("6A2 Long Trường - Tính năng Ảnh & Gradient Mới đã sẵn sàng.");
         };
 
         /**
-         * GHI CHÚ VỀ CẤU TRÚC DỮ LIỆU (DATABASE SCHEMA):
-         * Cần thiết lập bảng 'students' trên Supabase với các cột sau:
-         * - id: int4 (Khóa chính)
-         * - name: text (Họ và tên)
-         * - birthday: text (Ngày sinh nhật ví dụ '15/05')
-         * - dream: text (Ước mơ tương lai)
-         * - hobby: text (Sở thích/Tính cách)
-         * - color_theme: text (Lưu class CSS màu sắc)
-         * - avatar_image: text (Dữ liệu Base64 của ảnh)
-         * - role: text (Chức danh: 'teacher', 'monitor', 'student')
-         * - password: text (Mật khẩu bảo mật cá nhân)
-         * - name_color: text (Màu sắc của font chữ tên)
-         * - is_early: boolean (Trạng thái thành viên ưu tiên)
-         * - is_locked: boolean (Trạng thái khóa chỉnh sửa)
+         * LƯU Ý CHO SUPABASE:
+         * Để sử dụng tính năng ảnh lớp, bạn cần tạo bảng 'class_photos' trong Database của mình:
+         * - id: int8 (Primary Key, Auto-increment)
+         * - photo_data: text (Lưu chuỗi base64 của ảnh)
+         * - caption: text (Mô tả ảnh)
+         * - created_at: timestamp with time zone (Mặc định: now())
          */
     </script>
 </body>
